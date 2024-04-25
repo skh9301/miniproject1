@@ -29,7 +29,6 @@ public class ListDao {
 		}catch(NamingException e) {}
 	}
 	
-	
 	public ArrayList<Content> getList(){
 		String sqlSelect = "select * from content order by content_no";
 		ArrayList cList = null;
@@ -49,6 +48,7 @@ public class ListDao {
 				c.setConFile(rs.getString("con_file"));
 				c.setConCount(rs.getInt("con_count"));
 				c.setConGood(rs.getInt("con_good"));
+				c.setConBad(rs.getInt("con_bad"));
 				c.setConShare( rs.getString("con_share"));
 				
 				cList.add(c);
@@ -67,18 +67,17 @@ public class ListDao {
 		return cList;
 	}
 	
-	public ArrayList<Content> getList(int no){
+	public Content getList(int no){
 		String sqlSelect = "select * from content where content_no=?";
+		Content c =null;
 		ArrayList cList = null;
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlSelect);
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
-			cList = new ArrayList();
-			System.out.print(no);
 			if(rs.next()) {
-				Content c= new Content();
+				c= new Content();
 				c.setContentNo(rs.getInt("content_no"));
 				c.setUserId(rs.getString("userID"));
 				c.setConTitle(rs.getString("con_title"));
@@ -87,9 +86,9 @@ public class ListDao {
 				c.setConFile(rs.getString("con_file"));
 				c.setConCount(rs.getInt("con_count"));
 				c.setConGood(rs.getInt("con_good"));
+				c.setConBad(rs.getInt("con_bad"));
 				c.setConShare( rs.getString("con_share"));
 				
-				cList.add(c);
 			}
 			
 		}catch(SQLException e) {
@@ -102,6 +101,6 @@ public class ListDao {
 			}catch(Exception e) {}
 		}
 		
-		return cList;
+		return c;
 	}
 }

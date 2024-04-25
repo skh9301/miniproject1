@@ -11,12 +11,13 @@ public class Content {
 	public String conFile;
 	public int conCount;
 	public int conGood;
+	public int conBad;
 	public String conShare;
 	
 	public Content() {}
 
 	public Content(int contentNo, Timestamp conReDate, String userId, String conTitle, String conText, String conFile,
-			int conCount, int conGood, String conShare) {
+			int conCount, int conGood,int conBad, String conShare) {
 		super();
 		this.contentNo = contentNo;
 		this.conReDate = conReDate;
@@ -90,6 +91,13 @@ public class Content {
 	}
 
 	public void setConGood(int conGood) {
+		this.conGood = conGood;
+	}
+	public int getConBad() {
+		return conGood;
+	}
+	
+	public void setConBad(int conBad) {
 		this.conGood = conGood;
 	}
 

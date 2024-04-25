@@ -2,7 +2,6 @@ package com.mini.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,14 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mini.dao.ListDao;
 import com.mini.dao.LogDao;
-import com.mini.project.Content;
 import com.mini.project.Member;
 
-@WebServlet("/imgList")
-public class ListCtroller extends HttpServlet {
-	
+@WebServlet("/logProcess")
+public class LogProController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
@@ -45,20 +41,8 @@ public class ListCtroller extends HttpServlet {
 		
 		req.setAttribute("member", member);
 		
-		doGet(req, resp);
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		ListDao dao = new ListDao();
-		ArrayList<Content> cList= dao.getList();
-		
-		
-		
-		
-		req.setAttribute("cList", cList);
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
 		rd.forward(req,resp);
 	}
 }
+

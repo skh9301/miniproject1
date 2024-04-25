@@ -12,14 +12,29 @@
 <body>
 	<div class="container">
 		<!-- 헤더부분-->
-		
-		
-		
+		<div class= "row">
+			<div class="col">
+				<h1>header</h1>
+			</div>
+		</div>
+		<c:if test="${empty member.userId}">
+		<div class="row">
+			<div class="col">
+				<a href="logForm">로그인</a> | <a href="signForm">회원가입</a>
+			</div>
+		</div>
+		</c:if>
+		<c:if test="${not empty member.userId}">
+		<div class="row">
+			<div class="col">
+				${member.userId }님 어서오세요~~
+			</div>
+		</div>
+		</c:if>
 
 
 
 
-<!-- <img src="https://via.placeholder.com/150" alt="샘플이미지">-->
 
 		<!--센터부분-->
 		<div class="row my-5">
