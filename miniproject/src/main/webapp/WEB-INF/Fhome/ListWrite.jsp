@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>글쓰기</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
-
 <script src="js/formcheck.js"></script> 
 </head>
 <body>
@@ -20,6 +19,7 @@
 			</div>
 		</div>
 		<form name="writeForm" id="writeForm"  enctype="multipart/form-data" action="writeProcess" method="post" >
+			<input  type="hidden" name="pageNum" value="${pageNum }">
 		<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -42,7 +42,7 @@
 				<label for="content" class="form-label mx-5">내 용</label>
 		</div>
 			<div class= "row d-flex justify-content-center">
-				<textarea class="form-control" style="width:1250px;" name="Wcontext" id="content" rows="10"></textarea>
+				<textarea class="form-control" style="width:1250px;" name="Wcontext" id="Wcontext" rows="10"></textarea>
 			</div>
 		<div class="row my-4">
 			<div class= "col mx-4 d-flex justify-content-start">
@@ -54,8 +54,8 @@
 		
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
-					<button class="btn btn-primary mx-4" type="submit" id="write" >작성등록</button>
-					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList'">작성취소</button>
+					<button class="btn btn-primary mx-4" type="submit"  >작성등록</button>
+					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}'">작성취소</button>
 			</div>
 		</div>
 		</form>

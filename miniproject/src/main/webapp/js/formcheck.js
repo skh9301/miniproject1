@@ -2,21 +2,51 @@ $(function() {
 	
 	
 		
+		//업데이트 버튼 눌렀을때
+		$("#detailUpdate").on("click", function(){
+			$("#checkForm").attr("action","updateForm");
+			$("#checkForm").attr("method","post");
+			$("#checkForm").submit();
+		})
+
+
+		// 글 삭제하는 버틍
+		$("#detailDelete").on("click", function(){
+			$("#checkForm").attr("action","deleteProcess");
+			$("#checkForm").attr("method","post");
+			$("#checkForm").submit();
+		})
 		
-		//content 쓰기 
-		$("#write").on("click", function(){
-			if($("#Wtitle").val().trim().length<=0){
+		  
+		  //content 쓰기 
+			$("#writeForm").on("submit", function() {
+		if($("#Wtitle").val().length <= 0) {
+			alert("작성자가 입력되지 않았습니다.\n작성자를 입력해주세요");
+			$("#writer").focus();			
+			return false;
+		}
+			if($("#Wcontext").val().length<=0){
+				alert("내용을 입력하세요");
+				return false;
+			};
+		});
+		
+
+		
+		//업데이트 쓰기 
+		$("#updateForm").on("submit", function(){
+			if($("#Utitle").val().trim().length<=0){
 				alert("제목을 입력하세요");
 				return false;
 			};
-			if($("#Wcontext").val().trim().length<=0){
+			if($("#Ucontext").val().trim().length<=0){
 				alert("내용을 입력하세요");
 				return false;
 			};
 		});
 		
 		//회원가입창
-		$("#sign").on("click", function(){
+		$("#signForm").on("submit", function(){
 			if($("#id").val().trim().length<=0){
 				alert("아이디를 입력하세요");
 				return false;
@@ -39,7 +69,7 @@ $(function() {
 			};
 		});
 		
-		$("#log").on("click", function(){
+		$("#logForm").on("submit", function(){
 			if($("#LogId").val().trim().length<=0){
 				alert("아이디를 입력하세요");
 				return false;
@@ -51,18 +81,6 @@ $(function() {
 			
 		});
 		
-		//업데이트 버튼 눌렀을때
-		$("#detailUpdate").on("click", function(){
-			$("#checkForm").attr("action","updateForm");
-			$("#checkForm").attr("method","post");
-			$("#checkForm").submit();
-		})
-
-
-		// 글 삭제하는 버틍
-		$("#detailDelete").on("click", function(){
-			$("#checkForm").attr("action","deleteProcess");
-			$("#checkForm").attr("method","post");
-			$("#checkForm").submit();
-		})
+		
+		
 });

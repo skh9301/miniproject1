@@ -57,7 +57,7 @@
 <form name="imgList" id="imgList" ${not empty list.conFile ? "" : "enctype='multipart/form-data'"}>
 		<div class="row  justify-content-center my-5">
 			<div class="col-auto">
-				<select name="type" class="form-select">
+				<select name="type" class="form-select" >
 					<option value="title">제목</option>
 					<option value="writer">작성자</option>
 				</select>
@@ -71,11 +71,13 @@
 		</div>
 		<div class="row d-flex justify-content-between my-2">
 			<div class="col-3 mx-4">
-				<a href="writeForm" class="btn btn-outline-success" >글쓰기</a>
+				<a href="writeForm?pageNum=${currentPage }" class="btn btn-outline-success" >글쓰기</a>
 			</div>
 			<div class="col-1 mx-4" >
-				<select class="form-select form-select-sm" aria-label="Small select example" name="page">
-					<option value=${i }>1</option>
+				<select class="form-select form-select-sm" aria-label="Small select example" name="page" id="pageSelect" onchange="window.open(value,'_self');">
+					<c:forEach var="i" begin="${startPage }" end="${endPage}">
+						<option name="pageOption" id = "pageOption" value="imgList?pageNum=${i}">${i }</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -97,7 +99,7 @@
 						</div>
 						<div class="row">
 							<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
-								<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}">${ list.conTitle}</a>
+								<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}">${ list.conTitle}</a>
 							</div>
 						</div>
 						<div class="row">
@@ -121,6 +123,31 @@
 			</div>
 		</div>
 		</form>
+			<div class="row">
+			<div class="col">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:if test="${startPage>pageGroup}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage - pageGroup}">Prev</a></li>
+						</c:if>
+						
+						<c:forEach var="i" begin="${startPage }" end="${endPage}">
+							<!-- 현재페이지인경우 -->
+							<c:if test= "${i == currentPage }">
+							<li class="page-item active"><a class="page-link" href="imgList?pageNum=${i}">${i}</a></li>
+							</c:if>
+							
+							<c:if test="${i!=currentPage}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${i}">${i}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${endPage<pageCount}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage + pageGroup}">next</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
 		<!--푸터부분-->
 	</div><!-- 컨트롤러 끝 -->
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>

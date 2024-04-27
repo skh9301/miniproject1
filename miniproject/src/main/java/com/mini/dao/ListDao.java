@@ -31,13 +31,41 @@ public class ListDao {
 	}
 	
 	
+	
+	//전체 게시글 수
+	public int getCount(){
+		String sqlSelect = "select count(*) from content";
+		int count=0;
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlSelect);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+		return count;
+	}
+	
 	//게시글을 리스트로 뿌려줌
-	public ArrayList<Content> getList(){
-		String sqlSelect = "select * from content order by content_no";
+	public ArrayList<Content> getList(int startRow, int endRow){
+		String sqlSelect = "select * from (select rownum num, sub.* from (select * from content order by content_no desc) sub) where num between ? and ?";
 		ArrayList cList = null;
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlSelect);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
 			cList = new ArrayList();
 			

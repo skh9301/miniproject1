@@ -17,9 +17,11 @@ import com.mini.dao.LogDao;
 public class WriteForm extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String pageNum =req.getParameter("pageNum");
 		LogDao Ldao =new LogDao();
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
+		String pass = (String)session.getAttribute("pass");
 
 		if(id==null||id.equals("")) {
 			resp.setContentType("text/html; charset=UTF-8");
@@ -31,9 +33,10 @@ public class WriteForm extends HttpServlet{
 			out.close();
 			return;
 		}
-		
+		System.out.println(pageNum);
 		session.setAttribute("id",id);
-		 session.setAttribute("pass",id);
+		 session.setAttribute("pass",pass);
+		 session.setAttribute("pageNum",pageNum);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListWrite.jsp");
 		rd.forward(req, resp);

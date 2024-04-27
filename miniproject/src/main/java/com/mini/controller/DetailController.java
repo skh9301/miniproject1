@@ -18,6 +18,8 @@ import com.mini.project.Content;
 public class DetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String pageNum= req.getParameter("pageNum");
 		String sNo =req.getParameter("no");
 		int no = Integer.valueOf(sNo);
 		ListDao dao = new ListDao();
@@ -41,6 +43,7 @@ public class DetailController extends HttpServlet{
 		req.setAttribute("member", content.get(0));
 		req.setAttribute("content", content.get(1));
 		req.setAttribute("islogIn", islogIn);
+		req.setAttribute("pageNum", pageNum);
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListDetail.jsp");
 		rd.forward(req,resp);
 		

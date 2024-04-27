@@ -59,7 +59,7 @@ public class UpdateController extends HttpServlet{
 	String conFile = req.getParameter("WconFile");
 	boolean isFile = conFile ==null || conFile.equals("") ? false : true;
 	
-	String conShareCheck = null, title = null, sNo=null,context = null, writer=null ,fileName=null;
+	String conShareCheck = null, pageNum=null,title = null, sNo=null,context = null, writer=null ,fileName=null;
 	int no=0;
 	
 	//파일이 있을 경우
@@ -67,11 +67,12 @@ public class UpdateController extends HttpServlet{
 	MultipartRequest multi = new MultipartRequest(req,realPath,maxFileSize, 
 						encoding,new DefaultFileRenamePolicy());
 	
-	title = multi.getParameter("Wtitle");
-	context = multi.getParameter("Wcontext");
+	pageNum = multi.getParameter("pageNum");
+	title = multi.getParameter("Utitle");
+	context = multi.getParameter("Ucontext");
 	writer = (String)session.getAttribute("id");
-	conShareCheck=multi.getParameter("WconShare");
-	fileName = multi.getFilesystemName("WconFile");
+	conShareCheck=multi.getParameter("UconShare");
+	fileName = multi.getFilesystemName("UconFile");
 	sNo = multi.getParameter("no");
 	no = Integer.parseInt(sNo);
 	
@@ -83,10 +84,11 @@ public class UpdateController extends HttpServlet{
 	req.setCharacterEncoding("UTF-8");
 	resp.setCharacterEncoding("utf-8");
 	
-	title = req.getParameter("Wtitle");
-	context = req.getParameter("Wcontext");
+	pageNum = req.getParameter("pageNum");
+	title = req.getParameter("Utitle");
+	context = req.getParameter("Ucontext");
 	writer = (String)session.getAttribute("id");
-	conShareCheck=req.getParameter("WconShare");
+	conShareCheck=req.getParameter("UconShare");
 	sNo = req.getParameter("no");
 	no = Integer.parseInt(sNo);
 	}
@@ -111,7 +113,7 @@ public class UpdateController extends HttpServlet{
 	
 	req.setAttribute("isFile",isFile);
 	
-	resp.sendRedirect("imgList");
+	resp.sendRedirect("imgList?pageNum="+pageNum);
 	}	
 	
 	

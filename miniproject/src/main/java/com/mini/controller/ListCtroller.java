@@ -37,14 +37,35 @@ public class ListCtroller extends HttpServlet {
 			pageNum="1";
 		}
 		
-		/*
-		 * //현재 페이지 int currentPage = Integer.parseInt(pageNum);
-		 * 
-		 * int startRow = currentPage
-		 */
+		
+		  //현재 페이지 
+		int currentPage = Integer.parseInt(pageNum);
+		
+		
+		// 페이징 처리 startRow ~ endRow까지 출력 ( rownum 범위값)
+		int startRow = currentPage*PAGE_SIZE-(PAGE_SIZE-1);
+		int endRow = startRow +PAGE_SIZE-1;
+		 
+		//전체 게시글 수
+		
 		ListDao Ldao = new ListDao();
-		ArrayList<Content> cList= Ldao.getList();
-		System.out.println(cList.get(13).getConFile());
+		int listCount = Ldao.getCount();
+		ArrayList<Content> cList= Ldao.getList(startRow,endRow);
+		
+		//소수점 처리하기 위한 3항연산자  10개의 게시물당 1페이지 적어도 1페이지를 가지게 함
+		int pageCount = listCount/PAGE_SIZE+(listCount/PAGE_SIZE== 0?0:1);
+		
+		//페이지 그룹 1~ 10까지 보이게
+		int startPage = currentPage/ PAGE_GROUP*PAGE_GROUP +1
+				-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0);
+		int endPage= startPage+PAGE_GROUP -1;
+		
+		
+		//만약 끝페이지가 더클경우 끝페이지는 현만들어진 페이지까지출력
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
 		
 		HttpSession session = req.getSession();
 		String nick= (String)session.getAttribute("nick");
@@ -52,6 +73,11 @@ public class ListCtroller extends HttpServlet {
 		req.setAttribute("nick", nick);
 		req.setAttribute("id", id);
 		req.setAttribute("cList", cList);
+		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("pageGroup", PAGE_GROUP);
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("endPage", endPage);
 			
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
 		rd.forward(req,resp);

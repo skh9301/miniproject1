@@ -21,6 +21,7 @@ public class updateForm extends HttpServlet{
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 		ListDao dao = new ListDao();
+		String pageNum =req.getParameter("pageNum");
 		String userId =req.getParameter("userId");
 		String sNo =req.getParameter("no");
 		int no = Integer.valueOf(sNo);
@@ -53,6 +54,7 @@ public class updateForm extends HttpServlet{
 		ArrayList content = dao.getList(no);
 		req.setAttribute("member", content.get(0));
 		req.setAttribute("content", content.get(1));
+		req.setAttribute("pageNum", pageNum);
 		session.setAttribute("id",id);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListUpdate.jsp");

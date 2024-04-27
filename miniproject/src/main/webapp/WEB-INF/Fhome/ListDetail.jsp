@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/formcheck.js"></script> 
+<script src="js/formcheck.js"></script>
 <title>커마 상세보기</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -17,6 +17,7 @@
 			<form name="checkForm" id="checkForm">
 				<input type="hidden" name="no" id="no" value="${ content.contentNo}"/>
 				<input type="hidden" name="userId" id="userId" value="${content.userId }">
+				<input type="hidden" name="pageNum" id="pageNum" value="${pageNum }">
 			</form>
 		<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
@@ -66,7 +67,7 @@
 				<input class="btn btn-warning" type="button" id="detailUpdate" value="수정하기"/>
 				&nbsp;&nbsp;<input class="btn btn-danger"  type="button" id="detailDelete" value="삭제하기" />			
 			</c:if>	
-						&nbsp;&nbsp;<input class="btn btn-primary" type="button" value="목록보기" 	onclick="location.href='imgList'"/>		
+						&nbsp;&nbsp;<input class="btn btn-primary" type="button" value="목록보기" 	onclick="location.href='imgList?pageNum=${pageNum}'"/>		
 			</div>
 		</div>
 	</div>

@@ -19,9 +19,12 @@ public class DeleteController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ListDao dao = new ListDao();
 		String sNo =req.getParameter("no");
+		String pageNum =req.getParameter("pageNum");
 		int no = Integer.valueOf(sNo);
 		dao.deleteContent(no);
 		
-		resp.sendRedirect("imgList");
+		
+		
+		resp.sendRedirect("imgList?pageNum="+pageNum);
 	}
 }

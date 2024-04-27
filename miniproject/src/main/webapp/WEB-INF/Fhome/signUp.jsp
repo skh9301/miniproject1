@@ -8,7 +8,7 @@
 <title>회원가입</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/formcheck.js"></script> 
+<script src="js/formcheck.js"></script> 
 </head>
 <body>
 	<div class="container-sm border border-primary rounded-3" style="margin-top: 7%;  width: 800px;">
@@ -52,10 +52,10 @@
 		<div class="row m-4">
 			<div class="col d-grid gap-2">
 			  <button class="btn btn-primary" type="submit" id="sign" >가입하기</button>
+		</form>
 			  <button class="btn btn-primary" type="button" onclick="location.href='imgList'">취소하기</button>
 			</div>
 		</div>
-		</form>
 	</div>
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>

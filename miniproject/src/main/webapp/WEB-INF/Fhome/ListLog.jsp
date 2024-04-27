@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>로그인</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="js/formcheck.js"></script>
 </head>
 <body>
 	<div class="container-sm border border-primary rounded-3" style="margin-top: 7%;  width: 800px;">
