@@ -19,7 +19,8 @@
 				<h2 class="text-center">글쓰기</h2>
 			</div>
 		</div>
-		<form name="writeForm" id="writeForm" action="writeProcess" method="post" ${not empty board.file1 ? "" : "enctype='multipart/form-data'"}>
+		<form name="updateForm" id="updateForm" action="updateProcess" method="post" ${not empty board.file1 ? "" : "enctype='multipart/form-data'"}>
+			<input type="hidden"  name="no" value="${content.contentNo }">
 			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -46,17 +47,18 @@
 					    <textarea class="form-control" name="Wcontext" id="content" rows="10">${content.conText }</textarea>
 			</div>
 		</div>
+		<c:if test="${empty  content.conFile}">
 		<div class="row my-4">
 			<div class= "col mx-4 d-flex justify-content-start">
 				<label for="WconFile" class="form-label"></label>
 					    <input type="file" class="form-control" name="WconFile"  id="WconFile" value="${content.conFile}">
 			</div>
 		</div>
-		
+		</c:if>
 		
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
-					<button class="btn btn-primary mx-4" type="submit" id="write" >수정하기</button>
+					<button class="btn btn-primary mx-4" type="submit" id="update" >수정하기</button>
 					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList'">작성취소</button>
 			</div>
 		</div>

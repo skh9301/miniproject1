@@ -135,6 +135,40 @@ public class ListDao {
 		
 	}
 	
+	// 업데이트 메서드
+		public void updateContent(Content con){
+			String fileUpdate=con.getConFile() !=null ? "con_file=?, " : "";
+			String sqlUpdate = "update content set con_title=? ,con_text=? ,"+ fileUpdate +"con_share=? where content_no=?";
+			System.out.println("메서드안입니다.");
+			try {
+				conn= ds.getConnection();
+				pstmt=conn.prepareStatement(sqlUpdate);
+				pstmt.setString(1,con.getConTitle());
+				pstmt.setString(2,con.getConText());
+				if(con.getConFile()!=null) {
+					pstmt.setString(3,con.getConFile());
+					pstmt.setString(4,con.getConShare());
+					pstmt.setInt(5,con.getContentNo());
+					System.out.println("여기는 파일있는");
+				}else {
+					pstmt.setString(3,con.getConShare());
+					pstmt.setInt(4,con.getContentNo());
+					System.out.println("여기는 파일없는");
+				}
+				
+				System.out.println("메서드안입니다. 마지막부분입니다");
+				pstmt.executeUpdate();
+			}catch(SQLException e) {
+				
+			}finally {
+				try {
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception e) {}
+			}
+			
+		}
+	
 	//글 삭제 메서드
 	public void deleteContent(int no){
 		String sqlInsert = "delete content where content_no=?";

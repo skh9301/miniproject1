@@ -17,8 +17,8 @@ import com.mini.project.Member;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@WebServlet("/writeProcess")
-public class WriteController extends HttpServlet{
+@WebServlet("/updateProcess")
+public class UpdateController extends HttpServlet{
 	
 	private static String uploadDir;
 	private static File parentFile;
@@ -40,6 +40,7 @@ public class WriteController extends HttpServlet{
 		if(! (parentFile.exists() && parentFile.isDirectory())) {
 			parentFile.mkdir();
 		}
+		System.out.println("init - " + parentFile);		
 	}
 	
 	
@@ -55,13 +56,11 @@ public class WriteController extends HttpServlet{
 	
 	HttpSession session = req.getSession();
 	
-	
-	// 파일이 있는지 없는지 확인
 	String conFile = req.getParameter("WconFile");
 	boolean isFile = conFile ==null || conFile.equals("") ? false : true;
 	
-	String conShareCheck = null,title = null, context = null, writer=null ,fileName=null;
-
+	String conShareCheck = null, title = null, sNo=null,context = null, writer=null ,fileName=null;
+	int no=0;
 	
 	//파일이 있을 경우
 	if(!isFile) {
@@ -73,7 +72,8 @@ public class WriteController extends HttpServlet{
 	writer = (String)session.getAttribute("id");
 	conShareCheck=multi.getParameter("WconShare");
 	fileName = multi.getFilesystemName("WconFile");
-	
+	sNo = multi.getParameter("no");
+	no = Integer.parseInt(sNo);
 	
 	}
 	
@@ -87,22 +87,27 @@ public class WriteController extends HttpServlet{
 	context = req.getParameter("Wcontext");
 	writer = (String)session.getAttribute("id");
 	conShareCheck=req.getParameter("WconShare");
-
-
+	sNo = req.getParameter("no");
+	no = Integer.parseInt(sNo);
 	}
 	String conShare = conShareCheck ==null ? "N" : "Y";
+	
+	
 	
 	Content con= new Content();
 	con.setConTitle(title);
 	con.setConText(context);
 	con.setConShare(conShare);
+	con.setContentNo(no);
 	con.setConFile(fileName);
 	con.setUserId(writer);
 	
 	
-	
 	ListDao Ldao = new ListDao();
-	Ldao.insertContent(con);
+	Ldao.updateContent(con);
+	
+	System.out.println("여기까지는 오니?");
+	
 	
 	req.setAttribute("isFile",isFile);
 	
