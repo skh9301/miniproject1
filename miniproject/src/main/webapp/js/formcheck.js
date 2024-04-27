@@ -1,4 +1,8 @@
 $(function() {
+	
+	
+		
+		
 
 		$("#sign").on("click", function(){
 			if($("#id").val().trim().length<=0){
@@ -34,8 +38,19 @@ $(function() {
 			};
 			
 		});
-		// summernote
-		$(document).ready(function() {
-			$('#summernote').summernote();
-		});
+		
+		//업데이트 버튼 눌렀을때
+		$("#detailUpdate").on("click", function(){
+			$("#checkForm").attr("action","updateForm");
+			$("#checkForm").attr("method","post");
+			$("#checkForm").submit();
+		})
+
+
+		// 글 삭제하는 버틍
+		$("#detailDelete").on("click", function(){
+			$("#checkForm").attr("action","deleteProcess");
+			$("#checkForm").attr("method","post");
+			$("#checkForm").submit();
+		})
 });

@@ -20,16 +20,17 @@
 			</div>
 		</div>
 		<form name="writeForm" id="writeForm" action="writeProcess" method="post">
-		<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
+			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
 				
 				<div class="col">
 					상시 공유
 				  <input class="form-check-input mx-2" name="WconShare"type="checkbox" value="on" id="flexCheckDefault">
+				  <label class="form-check-label" for="flexCheckDefault">
 				</div>
 				<div class="col-6 d-flex justify-content-center">
-					제 목 : &nbsp;&nbsp;<input type="text" id="Wtitle" name="Wtitle" style="height: 26px;">
+					제 목 : &nbsp;&nbsp;<input type="text" id="Wtitle" name="Wtitle" style="height: 20px;">
 				</div>
 				<div class="col d-flex justify-content-end">
 				<%-- <input type="text" value="${nick}"> --%>
@@ -37,13 +38,14 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- content  -->
-		<div class="row my-2">
-				<label for="content" class="form-label mx-5">내 용</label>
-		</div>
-			<div class= "row d-flex justify-content-center">
-				<textarea class="form-control" style="width:1250px;" name="Wcontext" id="content" rows="10"></textarea>
+		<div class="row">
+				<label for="content" class="form-label mx-4">내 용</label>
+			<div class= "col d-flex justify-content-center">
+					    <textarea class="form-control" name="Wcontext" id="content" rows="10"></textarea>
 			</div>
+		</div>
 		<div class="row my-4">
 			<div class= "col mx-4 d-flex justify-content-start">
 				<input type="file" name="WconFile">

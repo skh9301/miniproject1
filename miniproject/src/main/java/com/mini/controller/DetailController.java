@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mini.dao.ListDao;
 import com.mini.project.Content;
@@ -20,9 +21,26 @@ public class DetailController extends HttpServlet{
 		String sNo =req.getParameter("no");
 		int no = Integer.valueOf(sNo);
 		ListDao dao = new ListDao();
-		Content content = dao.getList(no);
+		ArrayList content = dao.getList(no);
+		Content con = (Content) content.get(1);
+		String userId = con.getUserId();
 		
-		req.setAttribute("content", content);
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		// 로그인이 됬을때 세션에 저장된 아이디와 작성글 의 작성자와 일치하는지 확인
+		boolean islogIn=false;
+		if(id==null) {
+			islogIn=false;
+		}
+		if(userId.equals(id)) {
+			islogIn=true;
+		}
+		
+		
+		req.setAttribute("member", content.get(0));
+		req.setAttribute("content", content.get(1));
+		req.setAttribute("islogIn", islogIn);
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListDetail.jsp");
 		rd.forward(req,resp);
 		

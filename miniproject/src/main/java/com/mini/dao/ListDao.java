@@ -70,10 +70,12 @@ public class ListDao {
 	}
 	
 	//디테일 게시글 - 해당 넘버에 게시글 불러옴
-	public Content getList(int no){
-		String sqlSelect = "select * from content where content_no=?";
+	public ArrayList<Object>  getList(int no){
+		String sqlSelect = "SELECT con.*, mem.nickName FROM content con INNER JOIN member mem ON con.userId = mem.userId "
+				+ "WHERE con.content_no = ?";
 		Content c =null;
-		ArrayList cList = null;
+		Member m  =null;
+		 ArrayList<Object> List = new ArrayList<>();
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlSelect);
@@ -81,8 +83,10 @@ public class ListDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				c= new Content();
+				m=new Member();
 				c.setContentNo(rs.getInt("content_no"));
 				c.setUserId(rs.getString("userID"));
+				m.setNickName(rs.getString("nickName"));
 				c.setConTitle(rs.getString("con_title"));
 				c.setConReDate(rs.getTimestamp("con_re_date"));
 				c.setConText(rs.getString("con_text"));
@@ -91,7 +95,8 @@ public class ListDao {
 				c.setConGood(rs.getInt("con_good"));
 				c.setConBad(rs.getInt("con_bad"));
 				c.setConShare( rs.getString("con_share"));
-				
+				List.add(m);
+				List.add(c);
 			}
 			
 		}catch(SQLException e) {
@@ -104,7 +109,7 @@ public class ListDao {
 			}catch(Exception e) {}
 		}
 		
-		return c;
+		return List;
 	}
 	
 	// 글쓰기 메서드
@@ -121,6 +126,25 @@ public class ListDao {
 			System.out.println("인서트후구간");
 			pstmt.executeUpdate();
 			System.out.print("셋구간");
+		}catch(SQLException e) {
+			
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+	}
+	
+	//글 삭제 메서드
+	public void deleteContent(int no){
+		String sqlInsert = "delete content where content_no=?";
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlInsert);
+			pstmt.setInt(1,no);
+			pstmt.executeUpdate();
 		}catch(SQLException e) {
 			
 		}finally {
