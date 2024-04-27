@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.mini.project.Content;
+import com.mini.project.Member;
 
 public class ListDao {
 	private Connection conn;
@@ -29,6 +30,8 @@ public class ListDao {
 		}catch(NamingException e) {}
 	}
 	
+	
+	//게시글을 리스트로 뿌려줌
 	public ArrayList<Content> getList(){
 		String sqlSelect = "select * from content order by content_no";
 		ArrayList cList = null;
@@ -53,7 +56,6 @@ public class ListDao {
 				
 				cList.add(c);
 			}
-			
 		}catch(SQLException e) {
 			
 		}finally {
@@ -67,6 +69,7 @@ public class ListDao {
 		return cList;
 	}
 	
+	//디테일 게시글 - 해당 넘버에 게시글 불러옴
 	public Content getList(int no){
 		String sqlSelect = "select * from content where content_no=?";
 		Content c =null;
@@ -102,5 +105,30 @@ public class ListDao {
 		}
 		
 		return c;
+	}
+	
+	// 글쓰기 메서드
+	public void insertContent(Content con){
+		String sqlInsert = "insert into content (content_no, userID,con_title, con_text,con_share, con_file,con_re_date) values (content_seq.nextval, ?,?, ?,? ,?,sysdate)";
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlInsert);
+			pstmt.setString(1,con.getUserId());
+			pstmt.setString(2,con.getConTitle());
+			pstmt.setString(3,con.getConText());
+			pstmt.setString(4,con.getConShare());
+			pstmt.setString(5,con.getConFile());
+			System.out.println("인서트후구간");
+			pstmt.executeUpdate();
+			System.out.print("셋구간");
+		}catch(SQLException e) {
+			
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
 	}
 }

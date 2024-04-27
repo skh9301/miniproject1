@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.mini.dao.LogDao;
 import com.mini.project.Member;
@@ -21,12 +23,23 @@ public class LogProController extends HttpServlet{
 		
 		String id = req.getParameter("id");
 		String pass = req.getParameter("pass");
-		String nick = req.getParameter("nick");
 		Member m  =new Member();
 		m.setUserId(id);
 		m.setPass(pass);
-		m.setNickName(nick);
-		
+		LogDao Ldao = new LogDao();
+		boolean loginCheck = Ldao.isPassCheck(id, pass);
+
+		if(!loginCheck) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>");
+			out.println("alert('check your Id or Password!')");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+			return;
+		}
+
 		if(id==null || id.equals("")||pass==null||pass.equals("") ) {
 			PrintWriter out = resp.getWriter();
 			out.println("<script>");
@@ -36,13 +49,12 @@ public class LogProController extends HttpServlet{
 			
 		}
 		
-		LogDao Ldao = new LogDao();
 		Member member =Ldao.getMember(id,pass);
-		
-		req.setAttribute("member", member);
-		
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
-		rd.forward(req,resp);
+		HttpSession session = req.getSession();
+		session.setAttribute("id", id);
+		session.setAttribute("pass", pass);
+		session.setAttribute("nick",member.getNickName());
+		resp.sendRedirect("imgList");
+
 	}
 }
-

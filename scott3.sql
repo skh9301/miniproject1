@@ -15,16 +15,16 @@ create table member(
 );
 
 create table content(
-    content_no number primary key,
-    userID varchar2(50 char) not null,
-    con_title varchar(500) not null,
-    con_re_date timestamp default sysdate,
-    con_text varchar2(2000 char),
-    con_file varchar2(50 char),
-    con_count number default 0,
-    con_good number default 0,
-    con_share char(1) default '0',
-    foreign key (userID) references member(userID)
+  content_no number primary key,
+  userID varchar2(50 char) not null,
+  con_title varchar(500) not null,
+  con_re_date timestamp default sysdate,
+  con_text varchar2(2000 char),
+  con_file varchar2(50 char),
+  con_count number default 0,
+  con_good number default 0,
+  con_share char(1) default '0',
+  foreign key (userID) references member(userID) 
 );
 alter table content add con_bad number defaule 0;
 create table comment1 (
@@ -39,17 +39,17 @@ create table comment1 (
 commit;
 create Sequence com_seq;
 create Sequence content_seq;
-drop table content;
+drop table member;
 select * from content;
 
 select * from jspbbs order by no desc;
 delete content where content_no=1;
 
 select * from (select rownum num,no,title,writer,content,reg_date,read_count,pass,file1 from (select * from jspbbs order by no desc)) where num >= 10 and num <= 20;
-
+select *from content;
 insert into member(userID, pass, nickName, mPhone, eMail)
 values ('user1', 'password1', 'User One', '123-456-7890', 'user1@example.com');
-
+SELECT  FROM member WHERE userId='admin';
 insert into member(userID, pass, nickName, mPhone, eMail)
 values ('user2', 'password2', 'User Two', '987-654-3210', 'user2@example.com');
 

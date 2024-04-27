@@ -1,8 +1,41 @@
 $(function() {
 
-	/* 게시 글 상세보기에서 게시 글 수정 폼 요청 처리
-	 * 아래와 같이 hidden 폼을 통해 post 방식으로 요청할 수 있다.
-	 **/
-	
-	
+		$("#sign").on("click", function(){
+			if($("#id").val().trim().length<=0){
+				alert("아이디를 입력하세요");
+				return false;
+			};
+			if($("#pass").val().trim().length<=0){
+				alert("비밀번호를 입력하세요");
+				return false;
+			};
+			if($("#nick").val().trim().length<=0){
+				alert("별명을 입력하세요");
+				return false;
+			};
+			if($("#phone").val().trim().length<=0){
+				alert("휴대폰 번호를 입력하세요");
+				return false;
+			};
+			if($("#mail").val().trim().length<=0){
+				alert("이메일을 입력하세요");
+				return false;
+			};
+		});
+		
+		$("#log").on("click", function(){
+			if($("#LogId").val().trim().length<=0){
+				alert("아이디를 입력하세요");
+				return false;
+			};
+			if($("#LogPass").val().trim().length<=0){
+				alert("비밀번호를 입력하세요");
+				return false;
+			};
+			
+		});
+		// summernote
+		$(document).ready(function() {
+			$('#summernote').summernote();
+		});
 });

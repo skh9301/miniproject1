@@ -33,7 +33,6 @@ public class LogDao {
 	// 회원가입 창	
 	public void insertMember(Member member){
 		String sqlInsert = "insert into member values ( ?,?,?,?,?)";
-		Member m = null;
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlInsert);
@@ -43,7 +42,6 @@ public class LogDao {
 			pstmt.setString(4,member.getmPhone());
 			pstmt.setString(5,member.geteMail());
 			pstmt.executeUpdate();
-			System.out.println(member.geteMail());
 			
 		}catch(SQLException e) {
 			
@@ -86,4 +84,45 @@ public class LogDao {
 		}
 		return m;
 	}
+	
+	public boolean isPassCheck(String userId, String pass) {
+		boolean isPass = false;
+		String sqlPass = "SELECT userId,pass FROM member WHERE userId=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlPass);
+			
+			pstmt.setString(1, userId);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				 String memberId = rs.getString("userId");
+		         String memberPassword = rs.getString("pass");
+				
+		         if(memberId.equals(userId) && memberPassword.equals(pass)) {
+		        	 isPass = true;
+		        	 break;
+		         }
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return isPass;
+		
+	} 
 }

@@ -1,3 +1,4 @@
+<%@page import="com.mini.project.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,27 +9,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>커스텀마이징</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-	<div class="container">
+	<div class="container-lg">
 		<!-- 헤더부분-->
-		<div class= "row">
-			<div class="col">
-				<h1>header</h1>
+		
+	<c:if test="${empty id}">
+		<div class="header  rounded-3 text-bg-secondary p-3"  >
+			<div class="row my-2">
+				<div class="col d-flex justify-content-end mx-5 my-2">
+					<a href="logForm" class="fw-bold link-light text-decoration-none">로그인</a>&nbsp; |  &nbsp;<a href="signForm" class="fw-bold link-light text-decoration-none">회원가입</a>
+				</div>
 			</div>
-		</div>
-		<c:if test="${empty member.userId}">
-		<div class="row">
-			<div class="col">
-				<a href="logForm">로그인</a> | <a href="signForm">회원가입</a>
+			<div class="row my-3">
+				<div class="col">
+					<h2 class="fs-1 text fw-bold text-center"> 커마 자랑 공간</h2>
+				</div>
 			</div>
 		</div>
 		</c:if>
-		<c:if test="${not empty member.userId}">
-		<div class="row">
-			<div class="col">
-				${member.userId }님 어서오세요~~
+		<c:if test="${not empty id}">
+		<div class="header  rounded-3 text-bg-secondary p-3"  style="border :1px solid">
+			<div class="row my-3">
+				<div class="col d-flex justify-content-end mx-5 my-2">
+					 <a href=logoutPro id="logOut" class="fw-bold link-light text-decoration-none">  회원정보 수정</a> &nbsp;| &nbsp;<a href=logoutPro id="logOut" class="fw-bold link-light text-decoration-none">로그아웃</a>
+				</div>
 			</div>
+			<div class="row my-3">
+			<div class="col">
+				<h2 class="fs-1 text fw-bold text-center"> 커마 자랑 공간</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col  d-flex justify-content-end mx-5 my-2">
+				${nick}님 어서오세요 ~~
+			</div>
+		</div>
 		</div>
 		</c:if>
 
@@ -37,11 +54,7 @@
 
 
 		<!--센터부분-->
-		<div class="row my-5">
-			<div class="col">
-				<h2 class="fs-1 text fw-bold text-center"> 커마 자랑 공간</h2>
-			</div>
-		</div>
+
 		<div class="row  justify-content-center my-5">
 			<div class="col-auto">
 				<select name="type" class="form-select">
@@ -56,32 +69,37 @@
 				<input type="submit" value="검 색" class="btn btn-primary" />
 			</div>
 		</div>
-		<div class="row d-flex justify-content-between my-5">
-			<div class="col-3">
-				<a href="writeForm" class="btn btn-outline-success">글쓰기</a>
+		<div class="row d-flex justify-content-between my-2">
+			<div class="col-3 mx-4">
+				<a href="writeForm" class="btn btn-outline-success" >글쓰기</a>
 			</div>
-			<div class="col-1" >
+			<div class="col-1 mx-4" >
 				<select class="form-select form-select-sm" aria-label="Small select example" name="page">
 					<option value=${i }>1</option>
 				</select>
 			</div>
 		</div>
-		<div class = "row  my-5  justify-content-center">
-			<div class="col d-flex flex-wrap ">
+		<div class = "row-lg  my-3 mx-5 ">
+			<div class="col mx-2 d-flex flex-wrap  ">
 			<c:forEach var="list" items="${cList }">
 					<!--  커마 글 -->
-					<div class="rounded-3 border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 250px; background-color: rgba(255,0,0,0.1);">
+					<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 						<div class="row my-3">
 							<div class="col ">
 								<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
 							</div>
 						</div>
 						<div class="row">
-							<div class=" mb-2 fw-bold" style="width: 160px; height: 15px; font-size:10px;  ">
-								<span><a href="ListDetail?no=${list.contentNo}">${ list.conTitle}</a></span>
+							<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+								<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}">${ list.conTitle}</a>
 							</div>
 						</div>
-						<div class="row mb-3 " style="width: 160px; height: 15px; font-size:10px;">
+						<div class="row">
+							<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+								${list.userId}
+							</div>
+						</div>
+						<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
 							<div class="col-2 d-flex text-start">
 								<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
 								${ list.conCount}

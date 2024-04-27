@@ -23,7 +23,7 @@ public class SignUpProController extends HttpServlet{
 		String nick = req.getParameter("nick");
 		String phone = req.getParameter("phone");
 		String email = req.getParameter("email");
-		System.out.println(pass);
+		
 		Member m  =new Member();
 		m.setUserId(id);
 		m.setPass(pass);

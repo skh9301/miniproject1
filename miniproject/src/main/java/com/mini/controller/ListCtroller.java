@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.mini.dao.ListDao;
 import com.mini.dao.LogDao;
@@ -19,45 +22,22 @@ import com.mini.project.Member;
 @WebServlet("/imgList")
 public class ListCtroller extends HttpServlet {
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding("utf-8");
-		
-		String id = req.getParameter("id");
-		String pass = req.getParameter("pass");
-		String nick = req.getParameter("nick");
-		Member m  =new Member();
-		m.setUserId(id);
-		m.setPass(pass);
-		m.setNickName(nick);
-		
-		if(id==null || id.equals("")||pass==null||pass.equals("") ) {
-			PrintWriter out = resp.getWriter();
-			out.println("<script>");
-			out.println("alert('아이디와 패스워드가 입력이 되지 않앗습니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-			
-		}
-		
-		LogDao Ldao = new LogDao();
-		Member member =Ldao.getMember(id,pass);
-		
-		req.setAttribute("member", member);
-		
-		doGet(req, resp);
-	}
+
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ListDao dao = new ListDao();
-		ArrayList<Content> cList= dao.getList();
+		ListDao Ldao = new ListDao();
+		ArrayList<Content> cList= Ldao.getList();
 		
 		
-		
-		
+		HttpSession session = req.getSession();
+		String nick= (String)session.getAttribute("nick");
+		String id= (String)session.getAttribute("id");
+		req.setAttribute("nick", nick);
+		req.setAttribute("id", id);
 		req.setAttribute("cList", cList);
+			
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
 		rd.forward(req,resp);
 	}
