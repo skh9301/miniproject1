@@ -22,14 +22,29 @@ import com.mini.project.Member;
 @WebServlet("/imgList")
 public class ListCtroller extends HttpServlet {
 	
-
+	// 한페이지에 기시글 10개 출력
+		private static final int PAGE_SIZE =10;
+		
+		// 페이지 네이션의 크기 - 10씩
+		private static final int PAGE_GROUP =10;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String pageNum =req.getParameter("pageNum");
+		
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		
+		/*
+		 * //현재 페이지 int currentPage = Integer.parseInt(pageNum);
+		 * 
+		 * int startRow = currentPage
+		 */
 		ListDao Ldao = new ListDao();
 		ArrayList<Content> cList= Ldao.getList();
-		
+		System.out.println(cList.get(13).getConFile());
 		
 		HttpSession session = req.getSession();
 		String nick= (String)session.getAttribute("nick");

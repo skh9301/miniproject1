@@ -19,7 +19,7 @@
 				<h2 class="text-center">글쓰기</h2>
 			</div>
 		</div>
-		<form name="writeForm" id="writeForm" action="writeProcess" method="post">
+		<form name="writeForm" id="writeForm"  enctype="multipart/form-data" action="writeProcess" method="post" >
 		<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -46,7 +46,8 @@
 			</div>
 		<div class="row my-4">
 			<div class= "col mx-4 d-flex justify-content-start">
-				<input type="file" name="WconFile">
+				<label for="WconFile" class="form-label"></label>
+					    <input type="file" class="form-control" name="WconFile"  id="WconFile" >
 			</div>
 		</div>
 		

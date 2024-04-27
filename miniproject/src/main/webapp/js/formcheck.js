@@ -3,7 +3,19 @@ $(function() {
 	
 		
 		
-
+		//content 쓰기 
+		$("#write").on("click", function(){
+			if($("#Wtitle").val().trim().length<=0){
+				alert("제목을 입력하세요");
+				return false;
+			};
+			if($("#Wcontext").val().trim().length<=0){
+				alert("내용을 입력하세요");
+				return false;
+			};
+		});
+		
+		//회원가입창
 		$("#sign").on("click", function(){
 			if($("#id").val().trim().length<=0){
 				alert("아이디를 입력하세요");

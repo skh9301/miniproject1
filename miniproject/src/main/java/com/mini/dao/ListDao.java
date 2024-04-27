@@ -48,11 +48,11 @@ public class ListDao {
 				c.setConTitle(rs.getString("con_title"));
 				c.setConReDate(rs.getTimestamp("con_re_date"));
 				c.setConText(rs.getString("con_text"));
-				c.setConFile(rs.getString("con_file"));
 				c.setConCount(rs.getInt("con_count"));
 				c.setConGood(rs.getInt("con_good"));
 				c.setConBad(rs.getInt("con_bad"));
 				c.setConShare( rs.getString("con_share"));
+				c.setConFile( rs.getString("con_file"));
 				
 				cList.add(c);
 			}
@@ -123,9 +123,7 @@ public class ListDao {
 			pstmt.setString(3,con.getConText());
 			pstmt.setString(4,con.getConShare());
 			pstmt.setString(5,con.getConFile());
-			System.out.println("인서트후구간");
 			pstmt.executeUpdate();
-			System.out.print("셋구간");
 		}catch(SQLException e) {
 			
 		}finally {

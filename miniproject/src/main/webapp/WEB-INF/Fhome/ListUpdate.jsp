@@ -19,7 +19,7 @@
 				<h2 class="text-center">글쓰기</h2>
 			</div>
 		</div>
-		<form name="writeForm" id="writeForm" action="writeProcess" method="post">
+		<form name="writeForm" id="writeForm" action="writeProcess" method="post" ${not empty board.file1 ? "" : "enctype='multipart/form-data'"}>
 			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -30,11 +30,11 @@
 				  <label class="form-check-label" for="flexCheckDefault">
 				</div>
 				<div class="col-6 d-flex justify-content-center">
-					제 목 : &nbsp;&nbsp;<input type="text" id="Wtitle" name="Wtitle" style="height: 20px;">
+					제 목 : &nbsp;&nbsp;<input type="text" id="Wtitle" name="Wtitle" style="height: 20px;" value="${content.conTitle }">
 				</div>
 				<div class="col d-flex justify-content-end">
 				<%-- <input type="text" value="${nick}"> --%>
-				작성자 : ${nick }
+				작성자 : ${member.nickName}
 				</div>
 			</div>
 		</div>
@@ -43,19 +43,20 @@
 		<div class="row">
 				<label for="content" class="form-label mx-4">내 용</label>
 			<div class= "col d-flex justify-content-center">
-					    <textarea class="form-control" name="Wcontext" id="content" rows="10"></textarea>
+					    <textarea class="form-control" name="Wcontext" id="content" rows="10">${content.conText }</textarea>
 			</div>
 		</div>
 		<div class="row my-4">
 			<div class= "col mx-4 d-flex justify-content-start">
-				<input type="file" name="WconFile">
+				<label for="WconFile" class="form-label"></label>
+					    <input type="file" class="form-control" name="WconFile"  id="WconFile" value="${content.conFile}">
 			</div>
 		</div>
 		
 		
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
-					<button class="btn btn-primary mx-4" type="submit" id="write" >작성등록</button>
+					<button class="btn btn-primary mx-4" type="submit" id="write" >수정하기</button>
 					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList'">작성취소</button>
 			</div>
 		</div>

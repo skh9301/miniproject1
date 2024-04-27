@@ -25,6 +25,7 @@ public class updateForm extends HttpServlet{
 		String sNo =req.getParameter("no");
 		int no = Integer.valueOf(sNo);
 		
+		//지금 로그인이 되어있는지
 		if(id==null||id.equals("")) {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = resp.getWriter();
@@ -36,6 +37,7 @@ public class updateForm extends HttpServlet{
 			return;
 		}
 		
+		//지금 로그인 된 아이디와 현 게시판의 아이디가 같은지
 		if(!(id.equals(userId))) {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = resp.getWriter();

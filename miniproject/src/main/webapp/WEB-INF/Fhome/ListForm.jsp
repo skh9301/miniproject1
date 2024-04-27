@@ -54,7 +54,7 @@
 
 
 		<!--센터부분-->
-
+<form name="imgList" id="imgList" ${not empty list.conFile ? "" : "enctype='multipart/form-data'"}>
 		<div class="row  justify-content-center my-5">
 			<div class="col-auto">
 				<select name="type" class="form-select">
@@ -86,7 +86,13 @@
 					<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 						<div class="row my-3">
 							<div class="col ">
-								<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+								<!-- 이미지가 들어가는 자리 -->
+								<c:if test="${empty list.conFile }">
+									<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+								</c:if>
+								<c:if test="${not empty list.conFile }">
+									<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+								</c:if>
 							</div>
 						</div>
 						<div class="row">
@@ -114,6 +120,7 @@
 			</c:forEach>
 			</div>
 		</div>
+		</form>
 		<!--푸터부분-->
 	</div><!-- 컨트롤러 끝 -->
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
