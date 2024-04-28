@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>글쓰기</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
-<script src="js/formcheck.js"></script> 
+<script src="js/summernote-0.8.18-dist/formcheck.js"></script> 
 </head>
 <body>
 	<div class="container">
@@ -58,7 +58,7 @@
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
 					<button class="btn btn-primary mx-4" type="submit" id="update" >수정하기</button>
-					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}'">작성취소</button>
+					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${isShare}'">작성취소</button>
 			</div>
 		</div>
 		</form>

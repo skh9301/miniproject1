@@ -8,8 +8,7 @@
 <title>회원가입</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/formcheck.js"></script> 
-</head>
+<script src="js/summernote-0.8.18-dist/formcheck.js"></script> </head>
 <body>
 	<div class="container-sm border border-primary rounded-3" style="margin-top: 7%;  width: 800px;">
 		<form name="signForm" id="signForm" action="signProcess" method="post">

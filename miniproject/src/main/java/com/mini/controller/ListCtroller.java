@@ -27,45 +27,83 @@ public class ListCtroller extends HttpServlet {
 		
 		// 페이지 네이션의 크기 - 10씩
 		private static final int PAGE_GROUP =10;
+		
+		
+		protected void doPost(
+				HttpServletRequest request, HttpServletResponse response)
+						throws ServletException, IOException {
+			request.setCharacterEncoding("utf-8");
+			
+			doGet(request,response);
+		}
+		
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		
+		//검색 타입
+		String type =req.getParameter("type");
+		String keyword =req.getParameter("keyword");
+		
+		
+		//검색 판별
+		boolean isSearch = type==null || type.equals("")||keyword==null||keyword.equals("") ? false : true;
+		
+		//공유타입 채크박스 클릭했을때 
+		String shareType =req.getParameter("shareType");
+		
+		
+		
+		//공유 판별
+		String isShare = shareType==null||shareType.equals("") ? "":"Y";
+		
+		
+		//현재 페이지
 		String pageNum =req.getParameter("pageNum");
 		
-		if(pageNum==null) {
+		if(pageNum==null || pageNum.equals("")) {
 			pageNum="1";
 		}
 		
-		
-		  //현재 페이지 
+		//현재 페이지 
 		int currentPage = Integer.parseInt(pageNum);
 		
 		
 		// 페이징 처리 startRow ~ endRow까지 출력 ( rownum 범위값)
 		int startRow = currentPage*PAGE_SIZE-(PAGE_SIZE-1);
 		int endRow = startRow +PAGE_SIZE-1;
+		
 		 
 		//전체 게시글 수
-		
+		ArrayList<Content> cList =null;
 		ListDao Ldao = new ListDao();
-		int listCount = Ldao.getCount();
-		ArrayList<Content> cList= Ldao.getList(startRow,endRow);
+	
+		int listCount =0;
 		
-		//소수점 처리하기 위한 3항연산자  10개의 게시물당 1페이지 적어도 1페이지를 가지게 함
-		int pageCount = listCount/PAGE_SIZE+(listCount/PAGE_SIZE== 0?0:1);
-		
-		//페이지 그룹 1~ 10까지 보이게
-		int startPage = currentPage/ PAGE_GROUP*PAGE_GROUP +1
-				-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0);
-		int endPage= startPage+PAGE_GROUP -1;
-		
-		
-		//만약 끝페이지가 더클경우 끝페이지는 현만들어진 페이지까지출력
-		if(endPage > pageCount) {
-			endPage = pageCount;
+		// 검색안했을때
+		if(!isSearch) {
+			listCount = Ldao.getCount();
+			cList= Ldao.getList(isShare, startRow,endRow);
+			// 검색했을때
+		}else if (isSearch ) {
+			listCount = Ldao.getCount(type,keyword);
+			cList= Ldao.getList(type,keyword,isShare,startRow,endRow);
 		}
-		
+
+		//소수점 처리하기 위한 3항연산자  10개의 게시물당 1페이지 적어도 1페이지를 가지게 함
+				int pageCount = listCount/PAGE_SIZE+(listCount/PAGE_SIZE== 0?0:1);
+				
+				//페이지 그룹 1~ 10까지 보이게
+				int startPage = currentPage/ PAGE_GROUP*PAGE_GROUP +1
+						-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0);
+				int endPage= startPage+PAGE_GROUP -1;
+				
+				
+				//만약 끝페이지가 더클경우 끝페이지는 현만들어진 페이지까지출력
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
 		
 		HttpSession session = req.getSession();
 		String nick= (String)session.getAttribute("nick");
@@ -78,7 +116,12 @@ public class ListCtroller extends HttpServlet {
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
-			
+		req.setAttribute("isSearch", isSearch);
+		req.setAttribute("isShare", isShare);
+		if(isSearch) {
+			req.setAttribute("type", type);
+			req.setAttribute("keyword", keyword);
+		}
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
 		rd.forward(req,resp);
 	}

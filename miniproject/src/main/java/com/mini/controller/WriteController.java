@@ -42,7 +42,6 @@ public class WriteController extends HttpServlet{
 		}
 	}
 	
-	
 @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
@@ -103,6 +102,10 @@ public class WriteController extends HttpServlet{
 	
 	ListDao Ldao = new ListDao();
 	Ldao.insertContent(con);
+	
+	
+	
+	
 	
 	req.setAttribute("isFile",isFile);
 	

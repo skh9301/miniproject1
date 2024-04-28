@@ -19,6 +19,14 @@ public class DetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String type = req.getParameter("type");
+		String keyword = req.getParameter("keyword");
+		String isShare = req.getParameter("isShare");
+		boolean searchOption = type ==null || type.equals("") || keyword ==null || keyword.equals("") ? false : true;
+		
+		
+		
+		
 		String pageNum= req.getParameter("pageNum");
 		String sNo =req.getParameter("no");
 		int no = Integer.valueOf(sNo);
@@ -44,6 +52,11 @@ public class DetailController extends HttpServlet{
 		req.setAttribute("content", content.get(1));
 		req.setAttribute("islogIn", islogIn);
 		req.setAttribute("pageNum", pageNum);
+		if(searchOption) {
+			req.setAttribute("type", type);
+			req.setAttribute("keyword", keyword);
+		}
+		req.setAttribute("isShare", isShare);
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListDetail.jsp");
 		rd.forward(req,resp);
 		

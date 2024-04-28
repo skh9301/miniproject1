@@ -57,9 +57,45 @@ public class ListDao {
 		return count;
 	}
 	
-	//게시글을 리스트로 뿌려줌
-	public ArrayList<Content> getList(int startRow, int endRow){
-		String sqlSelect = "select * from (select rownum num, sub.* from (select * from content order by content_no desc) sub) where num between ? and ?";
+	//전체 게시글 수
+	public int getCount(String type , String keyword){
+		String sqlSelect = "select count(*) from content where "+ type+ "= ?";
+		int count=0;
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlSelect);
+			pstmt.setString(1, "%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+		return count;
+	}
+	
+	//게시글을 리스트로 뿌려줌 검색아닐경우
+	public ArrayList<Content> getList(String isShare, int startRow, int endRow){
+		
+		if(isShare.equals("Y")) {
+			isShare= "where con_share like ('%Y%')";
+		}else {
+			isShare= "";
+			
+		}
+		
+		String sqlSelect = "select * from (select rownum num, sub.* from (select * from content "+isShare+" order by content_no desc ) sub) where num between ? and ?";
+		
+		
 		ArrayList cList = null;
 		try {
 			conn= ds.getConnection();
@@ -96,6 +132,60 @@ public class ListDao {
 		
 		return cList;
 	}
+	
+	//게시글을 리스트로 뿌려줌 검색일경우
+		public ArrayList<Content> getList(String type,String keyword,String isShare, int startRow, int endRow){
+			
+			if(isShare.equals("Y")) {
+				isShare= "and con_share like ('%Y%')";
+			}else {
+				isShare= "";
+				
+			}
+			String sqlSelect =  "select * from (select rownum num, sub.* from (select * from content  where "+type+"  like ? "+isShare +") sub) where num  between ? and ?";
+			
+			
+			
+			ArrayList cList = null;
+			try {
+				conn= ds.getConnection();
+				pstmt=conn.prepareStatement(sqlSelect);
+				pstmt.setString(1, "%"+keyword +"%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+				cList = new ArrayList();
+				
+				while(rs.next()) {
+					Content c= new Content();
+					c.setContentNo(rs.getInt("content_no"));
+					c.setUserId(rs.getString("userID"));
+					c.setConTitle(rs.getString("con_title"));
+					c.setConReDate(rs.getTimestamp("con_re_date"));
+					c.setConText(rs.getString("con_text"));
+					c.setConCount(rs.getInt("con_count"));
+					c.setConGood(rs.getInt("con_good"));
+					c.setConBad(rs.getInt("con_bad"));
+					c.setConShare( rs.getString("con_share"));
+					c.setConFile( rs.getString("con_file"));
+					
+					cList.add(c);
+					
+				}
+			}catch(SQLException e) {
+				
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception e) {}
+			}
+			
+			return cList;
+		}
+	
+	
 	
 	//디테일 게시글 - 해당 넘버에 게시글 불러옴
 	public ArrayList<Object>  getList(int no){
