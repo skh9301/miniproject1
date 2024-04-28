@@ -81,16 +81,16 @@ $(function() {
 		
 		
 		function updateShareType(checkbox) {
-		    var isShare = checkbox.checked ? 'Y' : ''; // 체크 여부에 따라 isShare 값을 설정
+		    var shareType = checkbox.checked ? 'Y' : ''; // 체크 여부에 따라 isShare 값을 설정
 		    var links = document.querySelectorAll('.contentLink'); // 모든 링크를 선택
 		    for (var i = 0; i < links.length; i++) {
 		        var link = links[i];
 		        var href = link.getAttribute('href');
 		        // href 값에 shareType 파라미터를 추가 또는 제거하여 업데이트
 		        if (href.indexOf('&shareType=') !== -1) {
-		            href = href.replace(/&shareType=(?:[^&]*)/, '&shareType=' + isShare);
+		            href = href.replace(/&shareType=(?:[^&]*)/, '&shareType=' + shareType);
 		        } else {
-		            href += '&shareType=' + isShare;
+		            href += '&shareType=' + shareType;
 		        }
 		        link.setAttribute('href', href); // 업데이트된 href 값을 적용
 		    }

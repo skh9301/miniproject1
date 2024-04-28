@@ -19,8 +19,12 @@
 			</div>
 		</div>
 		<form name="updateForm" id="updateForm" action="updateProcess" method="post" ${not empty board.file1 ? "" : "enctype='multipart/form-data'"}>
-			<input type="hidden"  name="no" value="${content.contentNo }">
-			<input type="hidden"  name="pageNum" value="${pageNum }">
+			<input type="hidden" name="no" id="no" value="${ content.contentNo}"/>
+					<input type="hidden" name="userId" id="userId" value="${content.userId }">
+					<input type="hidden" name="pageNum" id="pageNum" value="${pageNum }">
+					<input type="hidden" name="type" id="type" value="${type }">
+					<input type="hidden" name="keyword" id="keyword" value="${keyword }">
+					<input type="hidden" name="shareType" id="shareType" value="${shareType }">
 			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 			<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 			<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -58,7 +62,7 @@
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
 					<button class="btn btn-primary mx-4" type="submit" id="update" >수정하기</button>
-					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${isShare}'">작성취소</button>
+					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${shareType}'">작성취소</button>
 			</div>
 		</div>
 		</form>

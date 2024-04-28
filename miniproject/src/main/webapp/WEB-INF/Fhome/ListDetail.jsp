@@ -20,7 +20,7 @@
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageNum }">
 					<input type="hidden" name="type" id="type" value="${type }">
 					<input type="hidden" name="keyword" id="keyword" value="${keyword }">
-					<input type="hidden" name="isShare" id="isShare" value="${isShare }">
+					<input type="hidden" name="shareType" id="shareType" value="${shareType }">
 				</form>
 			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 				<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
@@ -71,7 +71,7 @@
 					&nbsp;&nbsp;<input class="btn btn-danger"  type="button" id="detailDelete" value="삭제하기" />			
 				</c:if>	
 							&nbsp;&nbsp;
-							<input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${isShare}'"/>
+							<input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${shareType}'"/>
 		
 				</div>
 			</div>

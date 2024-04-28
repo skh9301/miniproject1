@@ -64,7 +64,7 @@
 		<div class="row my-4 ">
 			<div class="col d-flex justify-content-center">
 					<button class="btn btn-primary mx-4" type="submit" >작성등록</button>
-					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${isShare}'">작성취소</button>
+					 <button class="btn btn-danger mx-4" type="button" onclick="location.href='imgList?pageNum=${pageNum}&type=${type}&keyword=${keyword}&shareType=${shareType}'">작성취소</button>
 			</div>
 		</div>
 		</form>

@@ -29,8 +29,7 @@ public class ListCtroller extends HttpServlet {
 		private static final int PAGE_GROUP =10;
 		
 		
-		protected void doPost(
-				HttpServletRequest request, HttpServletResponse response)
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
 						throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			
@@ -51,14 +50,14 @@ public class ListCtroller extends HttpServlet {
 		boolean isSearch = type==null || type.equals("")||keyword==null||keyword.equals("") ? false : true;
 		
 		//공유타입 채크박스 클릭했을때 
-		String shareType =req.getParameter("shareType");
-		
+		String shareTypeCheck =req.getParameter("shareType");
 		
 		
 		//공유 판별
-		String isShare = shareType==null||shareType.equals("") ? "":"Y";
+		String shareType = shareTypeCheck==null || shareTypeCheck.equals("") ? "":"Y";
 		
-		
+		boolean isShare =  shareTypeCheck==null || shareTypeCheck.equals("") ? false : true;
+  		
 		//현재 페이지
 		String pageNum =req.getParameter("pageNum");
 		
@@ -81,16 +80,26 @@ public class ListCtroller extends HttpServlet {
 	
 		int listCount =0;
 		
-		// 검색안했을때
-		if(!isSearch) {
+		// 검색x 공유x
+		if(!isSearch&&!isShare) {
 			listCount = Ldao.getCount();
-			cList= Ldao.getList(isShare, startRow,endRow);
-			// 검색했을때
-		}else if (isSearch ) {
+			cList= Ldao.getList( startRow,endRow);
+			// 검색 o 공유 x 
+		}else if (isSearch&&!isShare ) {
 			listCount = Ldao.getCount(type,keyword);
-			cList= Ldao.getList(type,keyword,isShare,startRow,endRow);
+			cList= Ldao.getList(type,keyword,startRow,endRow);
+			//검색 x 공유 o
+		}else if (!isSearch&&isShare ) {
+			listCount = Ldao.getCount(type,keyword);
+			cList= Ldao.getList(shareType,startRow,endRow);
+			
+			System.out.println(shareType);
+			System.out.println("검색 x 공유 o");
+			//검색o 공유o
+		}else if (isSearch&&isShare ) {
+			listCount = Ldao.getCount(type,keyword);
+			cList= Ldao.getList(type,keyword,shareType,startRow,endRow);
 		}
-
 		//소수점 처리하기 위한 3항연산자  10개의 게시물당 1페이지 적어도 1페이지를 가지게 함
 				int pageCount = listCount/PAGE_SIZE+(listCount/PAGE_SIZE== 0?0:1);
 				
@@ -118,11 +127,22 @@ public class ListCtroller extends HttpServlet {
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("isSearch", isSearch);
 		req.setAttribute("isShare", isShare);
-		if(isSearch) {
+		
+			// 검색 o 공유 x 
+		 if (isSearch&&!isShare ) {
+			 req.setAttribute("type", type);
+			 req.setAttribute("keyword", keyword);
+			//검색 x 공유 o
+		}else if (!isSearch&&isShare ) {
+			req.setAttribute("shareType", shareType);
+			//검색o 공유o
+		}else if (isSearch&&isShare ) {
 			req.setAttribute("type", type);
 			req.setAttribute("keyword", keyword);
+			req.setAttribute("shareType", shareType);
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
-		rd.forward(req,resp);
-	}
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListForm.jsp");
+			rd.forward(req,resp);
+		}
 }
+

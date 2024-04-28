@@ -71,11 +71,11 @@
 		</div>
 		<div class="row d-flex justify-content-between my-2">
 			<div class="col-3 mx-4">
-				<a href="writeForm?pageNum=${currentPage }" class="btn btn-outline-success" >글쓰기</a>
+				<a href="writeForm?pageNum=${currentPage }&type=${type}&keyword=${keyword}&shareType=${shareType}" class="btn btn-outline-success" >글쓰기</a>
 			</div>
 			<div class="col d-flex justify-content-end my-1">
 					상시 공유 : &nbsp;
-				  <input class="form-check-input" name="shareType" type="checkbox" value="Y" onclick="updateShareType(this);">
+				  <input class="form-check-input" name="shareType" type="checkbox" value="${shareType }" onclick="updateShareType(this);">
 			</div>
 			<div class="col-1 mx-4" >
 				<select class="form-select form-select-sm" aria-label="Small select example" name="page" id="pageSelect" onchange="window.open(value,'_self');">
@@ -89,8 +89,8 @@
 		<div class = "row-lg  my-3 mx-5 ">
 			<div class="col mx-2 d-flex flex-wrap  ">
 			
-			<!--검색 안했을때 리스트 출력  -->
-			<c:if test="${not isSearch and not empty cList}">
+			<!--공유 x 검색 x 리스트 출력  -->
+			<c:if test="${not isShare and not isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
 						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
@@ -98,13 +98,13 @@
 								<div class="col ">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
-										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">
+										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}">
 										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
-										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">
+										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}">
 										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
 										</a>
 									</c:if>
@@ -112,7 +112,7 @@
 							</div>
 							<div class="row">
 								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
-									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">${ list.conTitle}</a>
+									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}">${ list.conTitle}</a>
 								</div>
 							</div>
 							<div class="row">
@@ -134,8 +134,55 @@
 						</div><!--커마끝  -->
 				</c:forEach>
 			</c:if>
+			
+			<!--공유 o 검색 x 리스트 출력  -->
+			<c:if test="${isShare and not isSearch and not empty cList}">
+				<c:forEach var="list" items="${cList }">
+						<!--  커마 글 -->
+						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+							<div class="row my-3">
+								<div class="col ">
+									<!-- 이미지가 들어가는 자리 -->
+									<c:if test="${empty list.conFile }">
+										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&shareType=${shareType}">
+										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										</a>
+									</c:if>
+									<c:if test="${not empty list.conFile }">
+										
+										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&shareType=${shareType}">
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										</a>
+									</c:if>
+								</div>
+							</div>
+							<div class="row">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&shareType=${shareType}">${ list.conTitle}</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									${list.userId}
+								</div>
+							</div>
+							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
+								<div class="col-2 d-flex text-start">
+									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
+									${ list.conCount}
+								</div>
+								<div class="col-6"></div>
+								<div class="col-2 d-flex">
+									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
+									${ list.conGood}
+								</div>
+							</div>
+						</div><!--커마끝  -->
+				</c:forEach>
+			</c:if>
+			
 			<!--검색 했을때 리스트 출력  -->
-			<c:if test="${ isSearch and not empty cList}">
+			<c:if test="${not isShare and isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
 						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
@@ -143,13 +190,13 @@
 								<div class="col ">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
-										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">
 										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
-										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">
 										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
 										</a>
 									</c:if>
@@ -157,7 +204,7 @@
 							</div>
 							<div class="row">
 								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
-									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${isShare}">${ list.conTitle}</a>
+									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">${ list.conTitle}</a>
 								</div>
 							</div>
 							<div class="row">
@@ -179,6 +226,55 @@
 						</div><!--커마끝  -->
 				</c:forEach>
 			</c:if>
+			<!-- 공유한 검색 했을때 리스트 출력  -->
+			<c:if test="${ isShare and isSearch and not empty cList}">
+				<c:forEach var="list" items="${cList }">
+						<!--  커마 글 -->
+						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+							<div class="row my-3">
+								<div class="col ">
+									<!-- 이미지가 들어가는 자리 -->
+									<c:if test="${empty list.conFile }">
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">
+										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										</a>
+									</c:if>
+									<c:if test="${not empty list.conFile }">
+										
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										</a>
+									</c:if>
+								</div>
+							</div>
+							<div class="row">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">${ list.conTitle}</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									${list.userId}
+								</div>
+							</div>
+							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
+								<div class="col-2 d-flex text-start">
+									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
+									${ list.conCount}
+								</div>
+								<div class="col-6"></div>
+								<div class="col-2 d-flex">
+									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
+									${ list.conGood}
+								</div>
+							</div>
+						</div><!--커마끝  -->
+				</c:forEach>
+			</c:if>
+			
+			
+			
+			<!--  게시판 내용물이 없을때 -->
 			<!-- 검색 요청 x 게시글이 비어있을때 -->
 			<c:if test="${not isSearch and empty cList }">
 				<div class= "row">
@@ -195,33 +291,77 @@
 					</div>
 				</div>
 			</c:if>
+			<!-- 공유 요청 o 게시글이 비어있을때 -->
+			<c:if test="${isShare and empty cList }">
+				<div class= "row">
+					<div class= "col text-center">
+						공유게시물이 없습니다.
+					</div>
+				</div>
+			</c:if>
+			<!-- 공유 요청 o 검색 o 게시글이 비어있을때 -->
+			<c:if test="${isShare and  isSearch and empty cList }">
+				<div class= "row">
+					<div class= "col text-center">
+							${keyword} 검색 결과의 공유게시물이 없습니다.
+					</div>
+				</div>
+			</c:if>
 			</div>
 		</div>
 		</form>
 		<!-- 페이징 부분  -->
 		
 		<!-- 검색일때 -->
-		<c:if test="${isSearch}">
+		<c:if test="${not isShare and  isSearch}">
 			<div class="row">
 			<div class="col">
 				<nav aria-label="Page navigation">
 					<ul class="pagination justify-content-center">
 						<c:if test="${startPage>pageGroup}">
-							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage - pageGroup}&type=${type}&keyword=${keyword}&shareType=${isShare}">Prev</a></li>
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage - pageGroup}&type=${type}&keyword=${keyword}">Prev</a></li>
 						</c:if>
 						
 						<c:forEach var="i" begin="${startPage }" end="${endPage}">
 							<!-- 현재페이지인경우 -->
 							<c:if test= "${i == currentPage }">
-							<li class="page-item active"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}&shareType=${isShare}">${i}</a></li>
+							<li class="page-item active"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}">${i}</a></li>
 							</c:if>
 							
 							<c:if test="${i!=currentPage}">
-							<li class="page-item"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}&shareType=${isShare}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}">${i}</a></li>
 							</c:if>
 						</c:forEach>
 						<c:if test="${endPage<pageCount}">
-							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage + pageGroup}&type=${type}&keyword=${keyword}&shareType=${isShare}">next</a></li>
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage + pageGroup}&type=${type}&keyword=${keyword}">next</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		</c:if>
+		<!--공유 검색일때 -->
+		<c:if test="${ isShare and  isSearch}">
+			<div class="row">
+			<div class="col">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:if test="${startPage>pageGroup}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage - pageGroup}&type=${type}&keyword=${keyword}&shareType=${shareType}">Prev</a></li>
+						</c:if>
+						
+						<c:forEach var="i" begin="${startPage }" end="${endPage}">
+							<!-- 현재페이지인경우 -->
+							<c:if test= "${i == currentPage }">
+							<li class="page-item active"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}&shareType=${shareType}">${i}</a></li>
+							</c:if>
+							
+							<c:if test="${i!=currentPage}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${i}&type=${type}&keyword=${keyword}&shareType=${shareType}">${i}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${endPage<pageCount}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage + pageGroup}&type=${type}&keyword=${keyword}&shareType=${shareType}">next</a></li>
 						</c:if>
 					</ul>
 				</nav>
@@ -229,7 +369,7 @@
 		</div>
 		</c:if>
 		<!-- 일판일때 -->
-		<c:if test="${not isSearch}">
+		<c:if test="${not isShare and not isSearch}">
 			<div class="row">
 			<div class="col">
 				<nav aria-label="Page navigation">
@@ -256,16 +396,44 @@
 			</div>
 		</div>
 		</c:if>
+		<!-- 공유일때 -->
+		<c:if test="${ isShare and not isSearch}">
+			<div class="row">
+			<div class="col">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:if test="${startPage>pageGroup}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage - pageGroup}&shareType=${shareType}">Prev</a></li>
+						</c:if>
+						
+						<c:forEach var="i" begin="${startPage }" end="${endPage}">
+							<!-- 현재페이지인경우 -->
+							<c:if test= "${i == currentPage }">
+							<li class="page-item active"><a class="page-link" href="imgList?pageNum=${i}&shareType=${shareType}">${i}</a></li>
+							</c:if>
+							
+							<c:if test="${i!=currentPage}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${i}&shareType=${shareType}">${i}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${endPage<pageCount}">
+							<li class="page-item"><a class="page-link" href="imgList?pageNum=${startPage + pageGroup}&shareType=${shareType}">next</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		</c:if>
 		<!--푸터부분-->
 	</div><!-- 컨트롤러 끝 -->
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
 	    function updateShareType(checkbox) {
-	        var isShare = checkbox.checked ? 'Y' : ''; // 체크됐을 때 'Y', 아니면 빈 문자열로 설정
+	        var shareType = checkbox.value === 'Y' ? '' : 'Y'; // 체크됐을 때 'Y', 아니면 빈 문자열로 설정
 	        var href = window.location.href; // 현재 URL 가져오기
 	        var separator = href.indexOf('?') !== -1 ? '&' : '?'; // 주소에 이미 파라미터가 있는지 확인
 	        var ref = href.replace(/&shareType=(?:[^&]*)/, ''); // 기존의 shareType 값 제거
-	        ref += separator + 'shareType=' + isShare; // 변경된 URL에 새로운 shareType 값 추가
+	        ref += separator + 'shareType=' + shareType; // 변경된 URL에 새로운 shareType 값 추가
 	        window.location.href = ref; // 변경된 URL로 이동
 	    }
 	</script>
