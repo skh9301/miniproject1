@@ -307,6 +307,50 @@ public class ListDao {
 		return List;
 	}
 	
+	
+	public void updateBad(int bad, int no) {
+	    String sqlUpdate = "UPDATE content SET con_bad=? WHERE content_no=?";
+	    
+	    try {
+	        conn = ds.getConnection();
+	        pstmt = conn.prepareStatement(sqlUpdate);
+	        pstmt.setInt(1, bad);
+	        pstmt.setInt(2, no);
+	        pstmt.executeUpdate();
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // 리소스 해제
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	public void updateGood(int good, int no) {
+		String sqlUpdate = "UPDATE content SET con_good=? WHERE content_no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlUpdate);
+			pstmt.setInt(1, good);
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 리소스 해제
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// 글쓰기 메서드
 	public void insertContent(Content con){
 		String sqlInsert = "insert into content (content_no, userID,con_title, con_text,con_share, con_file,con_re_date) values (content_seq.nextval, ?,?, ?,? ,?,sysdate)";

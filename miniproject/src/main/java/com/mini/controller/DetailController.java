@@ -21,8 +21,7 @@ public class DetailController extends HttpServlet{
 		
 		String type = req.getParameter("type");
 		String keyword = req.getParameter("keyword");
-		
-		
+		String conCount = req.getParameter("conCount");
 		boolean isSearch = type ==null || type.equals("") || keyword ==null || keyword.equals("") ? false : true;
 		
 		//공유타입 채크박스 클릭했을때 
@@ -40,7 +39,9 @@ public class DetailController extends HttpServlet{
 		int no = Integer.valueOf(sNo);
 		ListDao dao = new ListDao();
 		ArrayList content = dao.getList(no);
+		
 		Content con = (Content) content.get(1);
+		/* con = dao. getGood(good, no); */
 		String userId = con.getUserId();
 		
 		HttpSession session = req.getSession();
@@ -75,5 +76,34 @@ public class DetailController extends HttpServlet{
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/ListDetail.jsp");
 		rd.forward(req,resp);
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    // 좋아요 수를 업데이트하는 로직 추가
+		String goodCount = req.getParameter("goodCount");
+	    String badCount = req.getParameter("badCount");
+	    String sNo = req.getParameter("no");
+	    int no = Integer.valueOf(sNo);
+	    int good=0, bad=0;
+	    
+	    if(goodCount!=null) {
+	    	good = Integer.valueOf(goodCount);
+	    }
+	    if(badCount!=null) {
+	    	bad = Integer.valueOf(badCount);
+	    }
+	    
+	    // goodCount와 badCount를 이용하여 DB 업데이트 등의 작업 수행
+	    ListDao dao = new ListDao();
+	    if(goodCount!=null) {
+	    	dao.updateGood(good, no);
+	    }
+	    if(badCount!=null) {
+	    	dao.updateBad(bad, no);
+	    }
+	    // 성공 여부를 클라이언트에 응답
+	    resp.setContentType("text/plain");
+	    resp.getWriter().write("Good and bad count updated successfully");
 	}
 }

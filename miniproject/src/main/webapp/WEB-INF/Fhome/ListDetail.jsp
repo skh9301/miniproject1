@@ -14,6 +14,9 @@
 	</head>
 	<body>
 		<div class="container">
+			<!-- header  -->
+		<%@ include file="../page/header.jsp"%>
+		<!--center  -->
 				<form name="checkForm" id="checkForm">
 					<input type="hidden" name="no" id="no" value="${ content.contentNo}"/>
 					<input type="hidden" name="userId" id="userId" value="${content.userId }">
@@ -21,7 +24,7 @@
 					<input type="hidden" name="type" id="type" value="${type }">
 					<input type="hidden" name="keyword" id="keyword" value="${keyword }">
 					<input type="hidden" name="shareType" id="shareType" value="${shareType }">
-				</form>
+				
 			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
 				<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 				<div class="row d-flex align-items-center mx-0" style="height:45px;">
@@ -59,9 +62,10 @@
 				</div>
 			</div>
 			<div class="row my-5 ">
-				<div class="col  d-flex justify-content-evenly">
-					<button type="button" class="btn btn-primary btn-lg"><img src="./icon/good.png" Style="width:20px">&nbsp;&nbsp;${content.conGood}</button>
-					<button type="button" class="btn btn-danger btn-lg"><img src="./icon/bad.png" Style="width:20px">&nbsp;&nbsp;${content.conBad}</button>
+				<div class="col  d-flex justify-content-evenly">	
+					<input type="button" class="btn btn-primary btn-lg" name="conGood" id="conGood" value="${content.conGood}">
+					<input type="button" class="btn btn-danger btn-lg" name="conBad" id="conBad" value="${content.conBad}">
+
 				</div>
 			</div>
 			<div class="row my-6 ">
@@ -76,6 +80,7 @@
 				</div>
 			</div>
 		</div>
+		</form>
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
 	</body>
 	</html>

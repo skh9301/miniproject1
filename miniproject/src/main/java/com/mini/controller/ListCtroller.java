@@ -23,7 +23,7 @@ import com.mini.project.Member;
 public class ListCtroller extends HttpServlet {
 	
 	// 한페이지에 기시글 10개 출력
-		private static final int PAGE_SIZE =10;
+		private static final int PAGE_SIZE = 8;
 		
 		// 페이지 네이션의 크기 - 10씩
 		private static final int PAGE_GROUP =10;
@@ -44,7 +44,7 @@ public class ListCtroller extends HttpServlet {
 		//검색 타입
 		String type =req.getParameter("type");
 		String keyword =req.getParameter("keyword");
-		
+		String conGood = req.getParameter("conGood");
 		
 		//검색 판별
 		boolean isSearch = type==null || type.equals("")||keyword==null||keyword.equals("") ? false : true;
@@ -125,7 +125,8 @@ public class ListCtroller extends HttpServlet {
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("isSearch", isSearch);
 		req.setAttribute("isShare", isShare);
-		
+		req.setAttribute("conGood",conGood);
+		System.out.println(conGood);
 			// 검색 o 공유 x 
 		 if (isSearch&&!isShare ) {
 			 req.setAttribute("type", type);

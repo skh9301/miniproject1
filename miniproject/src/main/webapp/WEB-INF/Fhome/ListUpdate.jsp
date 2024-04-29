@@ -13,6 +13,9 @@
 </head>
 <body>
 	<div class="container">
+		<!-- header  -->
+		<%@ include file="../page/header.jsp"%>
+		<!--center  -->
 		<div class="row">
 			<div class= "col">
 				<h2 class="text-center">글쓰기</h2>

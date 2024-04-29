@@ -13,45 +13,8 @@
 </head>
 <body>
 	<div class="container-lg">
-		<!-- 헤더부분-->
-		
-	<c:if test="${empty id}">
-		<div class="header  rounded-3 text-bg-secondary p-3"  >
-			<div class="row my-2">
-				<div class="col d-flex justify-content-end mx-5 my-2">
-					<a href="logForm" class="fw-bold link-light text-decoration-none">로그인</a>&nbsp; |  &nbsp;<a href="signForm" class="fw-bold link-light text-decoration-none">회원가입</a>
-				</div>
-			</div>
-			<div class="row my-3">
-				<div class="col">
-					<h2 class="fs-1 text fw-bold text-center"> <a href="imgList" class="fw-bold link-light text-decoration-none">  커마 자랑 공간</a></h2>
-				</div>
-			</div>
-		</div>
-		</c:if>
-		<c:if test="${not empty id}">
-		<div class="header  rounded-3 text-bg-secondary p-3"  style="border :1px solid">
-			<div class="row my-3">
-				<div class="col d-flex justify-content-end mx-5 my-2">
-					 <a href="logoutPro" id="logOut" class="fw-bold link-light text-decoration-none">  회원정보 수정</a> &nbsp;| &nbsp;<a href="logoutPro" id="logOut" class="fw-bold link-light text-decoration-none">로그아웃</a>
-				</div>
-			</div>
-			<div class="row my-3">
-			<div class="col">
-				<h2 class="fs-1 text fw-bold text-center"> <a href="imgList" class="fw-bold link-light text-decoration-none">커마 자랑 공간</a></h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col  d-flex justify-content-end mx-5 my-2">
-				${nick}님 어서오세요 ~~
-			</div>
-		</div>
-		</div>
-		</c:if>
-
-
-
-
+		<!-- header  -->
+		<%@ include file="../page/header.jsp"%>
 
 		<!--센터부분-->
 <form name="imgList" id="imgList" ${not empty list.conFile ? "" : "enctype='multipart/form-data'"}>
@@ -86,49 +49,48 @@
 			</div>
 			
 		</div>
-		<div class = "row-lg " style="margin:0px auto;">
-			<div class="col  d-flex flex-wrap  " style="margin-left: 70px ">
+		<div class = "row-lg mx-4" >
+			<div class="col  d-flex flex-wrap  ">
 			
 			<!--공유 x 검색 x 리스트 출력  -->
 			<c:if test="${not isShare and not isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
-						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+						<div class="rounded-3  border border-danger d-flex flex-column align-items-center text-start m-3" style="width: 280px; height: 420px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 							<div class="row my-3">
-								<div class="col ">
+								<div class="col my-2">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}"">
-										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										<img alt="" src="https://via.placeholder.com/240" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}"">
-										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:240px; height:240px;" >
 										</a>
 									</c:if>
 								</div>
 							</div>
-							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
-									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}">${ list.conTitle}</a>
+							<div class="row" >
+								<div class=" fw-bold d-flex  justify-content-start" style="width: 240px; height: 30px; font-size:20px; ">
+									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}" id="count">${ list.conTitle}</a>
 								</div>
 							</div>
-							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+							<div class="row my-2">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 240px; height: 20px; font-size:18px;">
 									${list.userId}
 								</div>
 							</div>
-							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
-								<div class="col-2 d-flex text-start">
-									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
-									${ list.conCount}
+							<div class="row mb-3 my-1 " style="width: 240px; height: 20px; font-size:15px;">
+								<div class="col-2 d-flex text-start  align-items-center">
+									<img src="./icon/eye.png" style="width:20px; margin-right: 5px;" >
+									<span value="${ list.conCount}" id="conCount" name="conCount">${ list.conCount}</span>
 								</div>
 								<div class="col-6"></div>
-								<div class="col-2 d-flex">
-									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
-									${ list.conGood}
+								<div class="col-2 d-flex  align-items-center">
+									<img src="./icon/good.png"  style="width:20px; margin-right: 5px;">
 								</div>
 							</div>
 						</div><!--커마끝  -->
@@ -139,42 +101,41 @@
 			<c:if test="${isShare and not isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
-						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+						<div class="rounded-3  border border-danger d-flex flex-column align-items-center text-start m-3" style="width: 280px; height: 420px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 							<div class="row my-3">
-								<div class="col ">
+								<div class="col my-2">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
 										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&shareType=${shareType}">
-										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										<img alt="" src="https://via.placeholder.com/240" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
 										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}&shareType=${shareType}">
-										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:240px; height:240px;" >
 										</a>
 									</c:if>
 								</div>
 							</div>
 							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+								<div class=" fw-bold d-flex  justify-content-start" style="width: 240px; height: 30px; font-size:20px; ">
 									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&shareType=${shareType}">${ list.conTitle}</a>
 								</div>
 							</div>
-							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									<div class="row my-2">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 240px; height: 20px; font-size:18px;">
 									${list.userId}
 								</div>
 							</div>
-							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
-								<div class="col-2 d-flex text-start">
-									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
-									${ list.conCount}
+							<div class="row mb-3 my-1 " style="width: 240px; height: 20px; font-size:15px;">
+								<div class="col-2 d-flex text-start  align-items-center">
+									<img src="./icon/eye.png" style="width:20px; margin-right: 5px;" >
+									<span value="${ list.conCount}" id="conCount" name="conCount">${ list.conCount}</span>
 								</div>
 								<div class="col-6"></div>
-								<div class="col-2 d-flex">
-									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
-									${ list.conGood}
+								<div class="col-2 d-flex  align-items-center">
+									<img src="./icon/good.png"  style="width:20px; margin-right: 5px;">
 								</div>
 							</div>
 						</div><!--커마끝  -->
@@ -185,42 +146,41 @@
 			<c:if test="${not isShare and isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
-						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+						<div class="rounded-3  border border-danger d-flex flex-column align-items-center text-start m-3" style="width: 280px; height: 420px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 							<div class="row my-3">
-								<div class="col ">
+								<div class="col my-2">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">
-										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										<img alt="" src="https://via.placeholder.com/240" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">
-										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:240px; height:240px;" >
 										</a>
 									</c:if>
 								</div>
 							</div>
 							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+								<div class=" fw-bold d-flex  justify-content-start" style="width: 240px; height: 30px; font-size:20px; ">
 									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}">${ list.conTitle}</a>
 								</div>
 							</div>
-							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									<div class="row my-2">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 240px; height: 20px; font-size:18px;">
 									${list.userId}
 								</div>
 							</div>
-							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
-								<div class="col-2 d-flex text-start">
-									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
-									${ list.conCount}
+							<div class="row mb-3 my-1 " style="width: 240px; height: 20px; font-size:15px;">
+								<div class="col-2 d-flex text-start  align-items-center">
+									<img src="./icon/eye.png" style="width:20px; margin-right: 5px;" >
+									<span value="${ list.conCount}" id="conCount" name="conCount">${ list.conCount}</span>
 								</div>
 								<div class="col-6"></div>
-								<div class="col-2 d-flex">
-									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
-									${ list.conGood}
+								<div class="col-2 d-flex  align-items-center">
+									<img src="./icon/good.png"  style="width:20px; margin-right: 5px;">
 								</div>
 							</div>
 						</div><!--커마끝  -->
@@ -230,42 +190,41 @@
 			<c:if test="${ isShare and isSearch and not empty cList}">
 				<c:forEach var="list" items="${cList }">
 						<!--  커마 글 -->
-						<div class="rounded-3  border border-dark  d-flex flex-column align-items-center text-start m-3" style="width: 200px; height: 270px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
+						<div class="rounded-3  border border-danger d-flex flex-column align-items-center text-start m-3" style="width: 280px; height: 420px; background-color: rgba(255,0,0,0.1); margin-right: 20px;">
 							<div class="row my-3">
-								<div class="col ">
+								<div class="col my-2">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">
-										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
+										<img alt="" src="https://via.placeholder.com/240" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
 										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">
-										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
+										<img src="upload/${list.conFile}" class="rounded-3" style="width:240px; height:240px;" >
 										</a>
 									</c:if>
 								</div>
 							</div>
 							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+								<div class=" fw-bold d-flex  justify-content-start" style="width: 240px; height: 30px; font-size:20px; ">
 									<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}&type=${type}&keyword=${keyword}&shareType=${shareType}">${ list.conTitle}</a>
 								</div>
 							</div>
-							<div class="row">
-								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 160px; height: 15px; font-size:10px;  ">
+									<div class="row my-2">
+								<div class=" mb-2 fw-bold d-flex  justify-content-start" style="width: 240px; height: 20px; font-size:18px;">
 									${list.userId}
 								</div>
 							</div>
-							<div class="row mb-3 my-1 " style="width: 160px; height: 15px; font-size:10px;">
-								<div class="col-2 d-flex text-start">
-									<img src="./icon/eye.png" style="width:12px; margin-right: 5px;" >
-									${ list.conCount}
+							<div class="row mb-3 my-1 " style="width: 240px; height: 20px; font-size:15px;">
+								<div class="col-2 d-flex text-start  align-items-center">
+									<img src="./icon/eye.png" style="width:20px; margin-right: 5px;" >
+									<span value="${ list.conCount}" id="conCount" name="conCount">${ list.conCount}</span>
 								</div>
 								<div class="col-6"></div>
-								<div class="col-2 d-flex">
-									<img src="./icon/good.png"  style="width:12px; margin-right: 5px;">
-									${ list.conGood}
+								<div class="col-2 d-flex  align-items-center">
+									<img src="./icon/good.png"  style="width:20px; margin-right: 5px;">
 								</div>
 							</div>
 						</div><!--커마끝  -->

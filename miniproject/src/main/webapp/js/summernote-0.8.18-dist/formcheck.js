@@ -1,6 +1,84 @@
 $(function() {
 	
-	
+$(document).ready(function() {
+    // 페이지가 로드될 때 초기값 가져오기
+    getInitialCounts();
+});
+
+// 좋아요 버튼 클릭 시
+$("#conGood").on("click", function(event) {
+    event.preventDefault(); // 기본 이벤트(폼 제출) 방지
+
+    var currentGoodCount = parseInt($(this).val()); // 현재 좋아요 개수 가져오기
+    var newGoodCount = currentGoodCount + 1; // 새로운 좋아요 개수 계산
+    $(this).val(newGoodCount); // 새로운 좋아요 개수로 값 변경
+
+    // HTML에서 no 값 가져오기
+    var no = $("#no").val();
+
+    // 포스트 요청 보내기
+    $.ajax({
+        method: "POST",
+        data: { goodCount: newGoodCount, no: no }, // 서버로 전송할 데이터
+        url: "/miniproject/ListDetail",
+        success: function(response) {
+            // 요청이 성공하면 수행할 작업
+            console.log("좋아요 수가 성공적으로 업데이트되었습니다.");
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패하면 수행할 작업
+            console.error("AJAX request failed:", status, error);
+        }
+    });
+});
+
+// 싫어요 버튼 클릭 시
+$("#conBad").on("click", function(event) {
+    event.preventDefault(); // 기본 이벤트(폼 제출) 방지
+
+    var currentBadCount = parseInt($(this).val()); // 현재 싫어요 개수 가져오기
+    var newBadCount = currentBadCount + 1; // 새로운 싫어요 개수 계산
+    $(this).val(newBadCount); // 새로운 싫어요 개수로 값 변경
+
+    // HTML에서 no 값 가져오기
+    var no = $("#no").val();
+
+    // 포스트 요청 보내기
+    $.ajax({
+        method: "POST",
+        data: { badCount: newBadCount, no: no }, // 서버로 전송할 데이터
+        url: "/miniproject/ListDetail",
+        success: function(response) {
+            // 요청이 성공하면 수행할 작업
+            console.log("싫어요 수가 성공적으로 업데이트되었습니다.");
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패하면 수행할 작업
+            console.error("AJAX request failed:", status, error);
+        }
+    });
+});
+
+// 초기값을 가져오는 함수
+function getInitialCounts() {
+    // HTML에서 no 값 가져오기
+    var no = $("#no").val();
+
+    // AJAX 요청 보내기
+    $.ajax({
+        method: "GET",
+        url: "/miniproject/GetInitialCounts?no=" + no, // 서버에서 초기값을 가져올 URL
+        success: function(response) {
+            // 서버에서 가져온 초기값으로 좋아요와 싫어요 버튼의 값을 설정
+            $("#conGood").val(response.goodCount);
+            $("#conBad").val(response.badCount);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패하면 수행할 작업
+            console.error("Initial counts request failed:", status, error);
+        }
+    });
+}	
 		
 		//업데이트 버튼 눌렀을때
 		$("#detailUpdate").on("click", function(){
@@ -78,8 +156,6 @@ $(function() {
 			};
 			
 		});
-		
-		
 		function updateShareType(checkbox) {
 		    var shareType = checkbox.checked ? 'Y' : ''; // 체크 여부에 따라 isShare 값을 설정
 		    var links = document.querySelectorAll('.contentLink'); // 모든 링크를 선택
