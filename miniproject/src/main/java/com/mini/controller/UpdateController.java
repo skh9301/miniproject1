@@ -56,17 +56,35 @@ public class UpdateController extends HttpServlet{
 	
 	HttpSession session = req.getSession();
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	String conFile = req.getParameter("WconFile");
 	boolean isFile = conFile ==null || conFile.equals("") ? false : true;
 	
 	String conShareCheck = null, pageNum=null,title = null, sNo=null,context = null, writer=null ,fileName=null;
+	String type=null ,keyword=null,shareTypeCheck=null ;
 	int no=0;
+	
+	
+	
+	
+	
 	
 	//파일이 있을 경우
 	if(!isFile) {
 	MultipartRequest multi = new MultipartRequest(req,realPath,maxFileSize, 
 						encoding,new DefaultFileRenamePolicy());
 	
+	
+	 type = multi.getParameter("type");
+		keyword = multi.getParameter("keyword");
+		shareTypeCheck =multi.getParameter("shareType");
 	pageNum = multi.getParameter("pageNum");
 	title = multi.getParameter("Utitle");
 	context = multi.getParameter("Ucontext");
@@ -84,6 +102,9 @@ public class UpdateController extends HttpServlet{
 	req.setCharacterEncoding("UTF-8");
 	resp.setCharacterEncoding("utf-8");
 	
+	 type = req.getParameter("type");
+		keyword = req.getParameter("keyword");
+		shareTypeCheck =req.getParameter("shareType");
 	pageNum = req.getParameter("pageNum");
 	title = req.getParameter("Utitle");
 	context = req.getParameter("Ucontext");
@@ -95,6 +116,17 @@ public class UpdateController extends HttpServlet{
 	String conShare = conShareCheck ==null ? "N" : "Y";
 	
 	
+	
+	boolean isSearch = type ==null || type.equals("") || keyword ==null || keyword.equals("") ? false : true;
+	
+	//공유타입 채크박스 클릭했을때 
+			
+			System.out.println("여기는 업데이트프로세스입니다");
+			System.out.println(shareTypeCheck);
+			//공유 판별
+			String shareType = shareTypeCheck==null || shareTypeCheck.equals("") ? "":"Y";
+			
+			boolean isShare =  shareTypeCheck==null || shareTypeCheck.equals("") ? false : true;
 	
 	Content con= new Content();
 	con.setConTitle(title);
@@ -108,12 +140,26 @@ public class UpdateController extends HttpServlet{
 	ListDao Ldao = new ListDao();
 	Ldao.updateContent(con);
 	
-	System.out.println("여기까지는 오니?");
 	
+	req.setAttribute("pageNum", pageNum);
+	session.setAttribute("id",writer);
 	
+	 if (isSearch&&!isShare ) {
+		 req.setAttribute("type", type);
+		 req.setAttribute("keyword", keyword);
+		//검색 x 공유 o
+	}else if (!isSearch&&isShare ) {
+		req.setAttribute("shareType", shareType);
+		//검색o 공유o
+	}else if (isSearch&&isShare ) {
+		req.setAttribute("type", type);
+		req.setAttribute("keyword", keyword);
+		req.setAttribute("shareType", shareType);
+	}
+	System.out.println(shareType);
 	req.setAttribute("isFile",isFile);
 	
-	resp.sendRedirect("imgList?pageNum="+pageNum);
+	resp.sendRedirect("imgList?no="+no+ "&pageNum="+pageNum+"&type="+type+"&keyword="+keyword+"&shareType="+shareType);
 	}	
 	
 	

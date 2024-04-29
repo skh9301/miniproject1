@@ -24,7 +24,7 @@
 			</div>
 			<div class="row my-3">
 				<div class="col">
-					<h2 class="fs-1 text fw-bold text-center"> 커마 자랑 공간</h2>
+					<h2 class="fs-1 text fw-bold text-center"> <a href="imgList" class="fw-bold link-light text-decoration-none">  커마 자랑 공간</a></h2>
 				</div>
 			</div>
 		</div>
@@ -33,12 +33,12 @@
 		<div class="header  rounded-3 text-bg-secondary p-3"  style="border :1px solid">
 			<div class="row my-3">
 				<div class="col d-flex justify-content-end mx-5 my-2">
-					 <a href=logoutPro id="logOut" class="fw-bold link-light text-decoration-none">  회원정보 수정</a> &nbsp;| &nbsp;<a href=logoutPro id="logOut" class="fw-bold link-light text-decoration-none">로그아웃</a>
+					 <a href="logoutPro" id="logOut" class="fw-bold link-light text-decoration-none">  회원정보 수정</a> &nbsp;| &nbsp;<a href="logoutPro" id="logOut" class="fw-bold link-light text-decoration-none">로그아웃</a>
 				</div>
 			</div>
 			<div class="row my-3">
 			<div class="col">
-				<h2 class="fs-1 text fw-bold text-center"> 커마 자랑 공간</h2>
+				<h2 class="fs-1 text fw-bold text-center"> <a href="imgList" class="fw-bold link-light text-decoration-none">커마 자랑 공간</a></h2>
 			</div>
 		</div>
 		<div class="row">
@@ -86,8 +86,8 @@
 			</div>
 			
 		</div>
-		<div class = "row-lg  my-3 mx-5 ">
-			<div class="col mx-2 d-flex flex-wrap  ">
+		<div class = "row-lg " style="margin:0px auto;">
+			<div class="col  d-flex flex-wrap  " style="margin-left: 70px ">
 			
 			<!--공유 x 검색 x 리스트 출력  -->
 			<c:if test="${not isShare and not isSearch and not empty cList}">
@@ -98,13 +98,13 @@
 								<div class="col ">
 									<!-- 이미지가 들어가는 자리 -->
 									<c:if test="${empty list.conFile }">
-										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}">
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}"">
 										<img alt="" src="https://via.placeholder.com/160" class="rounded-3" >
 										</a>
 									</c:if>
 									<c:if test="${not empty list.conFile }">
 										
-										<a class="link-dark text-decoration-none" href="ListDetail&pageNum=${currentPage}">
+										<a class="link-dark text-decoration-none" href="ListDetail?no=${list.contentNo}&pageNum=${currentPage}"">
 										<img src="upload/${list.conFile}" class="rounded-3" style="width:160px; height:160px;" >
 										</a>
 									</c:if>

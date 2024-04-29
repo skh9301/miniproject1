@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row my">
+		<div class="row">
 			<div class= "col">
 				<h2 class="text-center">글쓰기</h2>
 			</div>

@@ -93,8 +93,6 @@ public class ListCtroller extends HttpServlet {
 			listCount = Ldao.getCount(type,keyword);
 			cList= Ldao.getList(shareType,startRow,endRow);
 			
-			System.out.println(shareType);
-			System.out.println("검색 x 공유 o");
 			//검색o 공유o
 		}else if (isSearch&&isShare ) {
 			listCount = Ldao.getCount(type,keyword);
