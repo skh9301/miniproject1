@@ -115,8 +115,13 @@ public class ListCtroller extends HttpServlet {
 		HttpSession session = req.getSession();
 		String nick= (String)session.getAttribute("nick");
 		String id= (String)session.getAttribute("id");
+		String pass= (String)session.getAttribute("pass");
+		System.out.println("비밀번호 아디입니다.");
+		System.out.println(id);
+		System.out.println(pass);
 		req.setAttribute("nick", nick);
 		req.setAttribute("id", id);
+		req.setAttribute("pass", pass);
 		req.setAttribute("cList", cList);
 		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("pageGroup", PAGE_GROUP);

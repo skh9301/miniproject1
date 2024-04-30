@@ -87,7 +87,6 @@ function getInitialCounts() {
 			$("#checkForm").submit();
 		})
 
-
 		// 글 삭제하는 버틍
 		$("#detailDelete").on("click", function(){
 			$("#checkForm").attr("action","deleteProcess");

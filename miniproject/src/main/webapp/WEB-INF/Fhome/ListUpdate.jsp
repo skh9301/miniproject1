@@ -5,6 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+		#fabio1 {
+			background:url("./icon/배너2.jpg");
+			background-repeat: no-repeat;
+			background-size: 1260px 1400px;
+			background-position: center center;
+			width: 900px;
+			height: 1400px;
+			background-opacity: 0.5;
+			}
+			
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>글쓰기</title>
@@ -12,7 +24,8 @@
 <script src="js/summernote-0.8.18-dist/formcheck.js"></script> 
 </head>
 <body>
-	<div class="container">
+	<div class="container-lg" id="fabio1" style ="width:1400px; height: 1400px;" class="bg-opacity-80">
+	<div class="my-4"></div>
 		<!-- header  -->
 		<%@ include file="../page/header.jsp"%>
 		<!--center  -->

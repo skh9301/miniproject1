@@ -53,6 +53,31 @@ public class LogDao {
 		}
 		
 	}
+	// 회원수정
+	public void updateMember(Member member){
+		String sqlUpdate = "UPDATE member SET pass= ?, nickname= ?, mphone= ?,  email= ? WHERE userid= ?";
+		System.out.println("dao  - updateMember(Member member) : " + member.getUserId());
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlUpdate);
+			pstmt.setString(1,member.getPass());
+			pstmt.setString(2,member.getNickName());
+			pstmt.setString(3,member.getmPhone());
+			pstmt.setString(4,member.geteMail());			
+			pstmt.setString(5,member.getUserId());
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+	}
 	// 로그인 창 
 	
 	public Member getMember(String userId, String pass){

@@ -13,7 +13,11 @@
 	<link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="container">
+		<div class="container-lg" id="fabio1" style ="width:1390px; height: 1400px;" >
+		<div class="row d-flex justify-content-center">
+		<img src="./icon/배너2투명도.png" class="z-n1 position-absolute p-5 rounded-3"style = " 	width: 1390px; background-repeat: no-repeat; background-position: center center;	height: 1260px;">
+	</div>
+			<div class="my-4"></div>
 			<!-- header  -->
 		<%@ include file="../page/header.jsp"%>
 		<!--center  -->
@@ -25,7 +29,7 @@
 					<input type="hidden" name="keyword" id="keyword" value="${keyword }">
 					<input type="hidden" name="shareType" id="shareType" value="${shareType }">
 				
-			<div class= "row my-3 bg-warning-subtle " style="width: 100%; height: 50px;">
+			<div class= "row  bg-warning-subtle " style="width: 1295px; height: 50px; margin-left:0px">
 				<div class="row  bg-warning mx-0" style="width: 100%; height:5px"></div>
 				<div class="row d-flex align-items-center mx-0" style="height:45px;">
 					
@@ -53,12 +57,15 @@
 			</div>
 			<div class="row my-2">
 				<div class="col ">
-					<h2 class="text-center fs-1 fw-bold text-danger"> [커스텀마이징] ${content.conTitle }</h2>
+					<h2 class="text-center fs-1 fw-bold text-dark"> [커스텀마이징] ${content.conTitle }</h2>
 				</div>
 			</div>
 			<div class="row-lg my-5" >
 				<div class="col d-flex justify-content-center">
-					<pre Class="w-60 p-3 fs-3">${content.conText }</pre>
+					<pre Class="w-60 p-3 fs-3">${content.conText }</pre><br>
+					<c:if test="${not empty content.conFile }" >
+						<img src="upload/${content.conFile }" style ="width:500px;">
+					</c:if>
 				</div>
 			</div>
 			<div class="row my-5 ">

@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+			
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>커스텀마이징</title>
@@ -12,12 +15,15 @@
 
 </head>
 <body>
-	<div class="container-lg">
+	<div class="container-lg" style ="width:1500px; height: 1600px;">
+	<div class="row d-flex justify-content-center">
+		<img src="./icon/배너2투명도.png" class="z-n1 position-absolute p-5 rounded-3"style = " 	width: 1390px; background-repeat: no-repeat; background-position: center center;	height: 1500px;">
+	</div>
 		<!-- header  -->
 		<%@ include file="../page/header.jsp"%>
 
 		<!--센터부분-->
-<form name="imgList" id="imgList" ${not empty list.conFile ? "" : "enctype='multipart/form-data'"}>
+<form name="imgList" id="imgList" ${not empty list.conFile ? "" : "enctype='multipart/form-data'"} >
 		<div class="row  justify-content-center my-5">
 			<div class="col-auto">
 				<select name="type" class="form-select" >
@@ -33,14 +39,14 @@
 			</div>
 		</div>
 		<div class="row d-flex justify-content-between my-2">
-			<div class="col-3 mx-4">
-				<a href="writeForm?pageNum=${currentPage }&type=${type}&keyword=${keyword}&shareType=${shareType}" class="btn btn-outline-success" >글쓰기</a>
+			<div class="col-3 mx-5">
+				<a href="writeForm?pageNum=${currentPage }&type=${type}&keyword=${keyword}&shareType=${shareType}" class="btn btn-dark " >글쓰기</a>
 			</div>
-			<div class="col d-flex justify-content-end my-1">
+			<div class="col d-flex justify-content-end my-1 ">
 					상시 공유 : &nbsp;
 				  <input class="form-check-input" name="shareType" type="checkbox" value="${shareType }" onclick="updateShareType(this);">
 			</div>
-			<div class="col-1 mx-4" >
+			<div class="col-1 mx-5" >
 				<select class="form-select form-select-sm" aria-label="Small select example" name="page" id="pageSelect" onchange="window.open(value,'_self');">
 					<c:forEach var="i" begin="${startPage }" end="${endPage}">
 						<option name="pageOption" id = "pageOption" value="imgList?pageNum=${i}">${i }</option>
@@ -49,8 +55,8 @@
 			</div>
 			
 		</div>
-		<div class = "row-lg mx-4" >
-			<div class="col  d-flex flex-wrap  ">
+		<div class = "row-lg"  >
+			<div class="col  d-flex flex-wrap" style="margin-left: 22px; ">
 			
 			<!--공유 x 검색 x 리스트 출력  -->
 			<c:if test="${not isShare and not isSearch and not empty cList}">
@@ -91,6 +97,7 @@
 								<div class="col-6"></div>
 								<div class="col-2 d-flex  align-items-center">
 									<img src="./icon/good.png"  style="width:20px; margin-right: 5px;">
+									${list.conGood }
 								</div>
 							</div>
 						</div><!--커마끝  -->
