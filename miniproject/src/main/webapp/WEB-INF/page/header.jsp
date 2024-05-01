@@ -72,7 +72,7 @@
 					class="d-flex menu align-center expanded text-center SMN_effect-15 justify-content-center m-0 p-0"
 					style="list-style: none; ">
 					<li><a href="http://192.168.0.70:8080/JSPStudyBBS902/boardMain" class="fw-bold link-light text-decoration-none" >🦊 양은정</a></li>
-					<li><a href="http://192.168.0.6:8080/miniProject01/management" class="fw-bold link-light text-decoration-none">️🐻‍❄ 이현학</a></li>
+					<li><a href="http://192.168.0.6:8080/miniProject01/management" class="fw-bold link-light text-decoration-none">🐻 이현학</a></li>
 					<li><a href="http://192.168.0.17:8080/Challenge/postMain" class="fw-bold link-light text-decoration-none">🐹 우황희</a></li>
 					<li><a href="http://192.168.0.9:9000/Challenge/postMain" class="fw-bold link-light text-decoration-none">🐭 이형철</a></li>
 				</ul>
@@ -97,7 +97,7 @@
 					class="d-flex menu align-center expanded text-center SMN_effect-15 justify-content-center m-0 p-0"
 					style="list-style: none; ">
 					<li><a href="http://192.168.0.70:8080/JSPStudyBBS902/boardMain" class="fw-bold link-light text-decoration-none" >🦊 양은정</a></li>
-					<li><a href="http://192.168.0.6:8080/miniProject01/management" class="fw-bold link-light text-decoration-none">️🐻‍❄ 이현학</a></li>
+					<li><a href="http://192.168.0.6:8080/miniProject01/management" class="fw-bold link-light text-decoration-none">🐻‍ 이현학</a></li>
 					<li><a href="http://192.168.0.17:8080/Challenge/postMain" class="fw-bold link-light text-decoration-none">🐹 우황희</a></li>
 					<li><a href="http://192.168.0.9:9000/Challenge/postMain" class="fw-bold link-light text-decoration-none">🐭 이형철</a></li>
 				</ul>

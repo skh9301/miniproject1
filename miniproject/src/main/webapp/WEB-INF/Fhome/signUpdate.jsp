@@ -14,7 +14,7 @@
 		<form name="signForm" id="signForm" action="signUpdateProcess" method="post">
 		<div class="row my-2">
 			<div class="col">
-				<h2 class="text-center">회원수정폼</h2>
+				<h2 class="text-center">회원수정</h2>
 			</div>
 		</div>
 		<div class="row m-2">

@@ -28,7 +28,7 @@
 <script src="js/summernote-0.8.18-dist/summernote.min.js"></script>
 </head>
 <body>
-	<div class="container-lg" style ="width:1600px; height: 1400px; border:1px solid">
+	<div class="container-lg" style ="width:1600px; height: 1400px; ">
 	<div class="row d-flex justify-content-center">
 		<img src="./icon/배너2투명도.png" class="z-n1 position-absolute p-5 rounded-3"style = " 	width: 1360px; background-repeat: no-repeat; background-position: center center;	height: 1260px;">
 	</div>
@@ -74,7 +74,7 @@
 				<div class="row my-4">
 					<div class="col mx-4 d-flex justify-content-start">
 						<label for="WconFile" class="form-label"></label> <input
-							type="file" class="form-control name="WconFile" id="WconFile" style= "width :400px; margin-left:150px">
+							type="file" class="form-control" name="WconFile" id="WconFile" style= "width :400px; margin-left:150px">
 					</div>
 				</div>
 				<div class="row my-4 ">

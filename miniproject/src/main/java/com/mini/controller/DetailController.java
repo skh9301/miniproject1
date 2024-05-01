@@ -61,6 +61,7 @@ public class DetailController extends HttpServlet{
 		req.setAttribute("content", content.get(1));
 		req.setAttribute("islogIn", islogIn);
 		req.setAttribute("pageNum", pageNum);
+		req.setAttribute("no", no);
 		 if (isSearch&&!isShare ) {
 			 req.setAttribute("type", type);
 			 req.setAttribute("keyword", keyword);

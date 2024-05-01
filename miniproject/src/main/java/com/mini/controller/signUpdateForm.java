@@ -26,16 +26,17 @@ public class signUpdateForm extends HttpServlet{
 		
 		boolean passCheck = pass.equals(Spass);
 		
-		if(passCheck==false) {
-			System.out.println("여기는 회원수정폼으로가는 블린값이다"+passCheck);
-			resp.setContentType("text/html; charset=utf-8;");
-			PrintWriter out=resp.getWriter();
+		if(!passCheck) {
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
 			out.println("<script>");
-			out.print("alert('비밀번호가 일치하지 않습니다.')");
-			out.print("history.back();");
-			out.print("</script>");
-			
+			out.println("alert('비밀번호가 일치하지 않습니다!')");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+			return;
 		}
+		
 		
 		req.setAttribute("nick", Snick);
 		req.setAttribute("id", Sid);

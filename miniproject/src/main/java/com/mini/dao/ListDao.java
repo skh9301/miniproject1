@@ -57,21 +57,69 @@ public class ListDao {
 		return count;
 	}
 	
-	//
+	// 검색일때 카운트
 	public int getCount(String type , String keyword){
-		String sqlSelect = "select count(*) from content where "+ type+ "= ?";
+		String sqlSelect = "select count(*) from content where " + type + "  like ?";
 		int count=0;
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlSelect);
 			pstmt.setString(1, "%"+keyword+"%");
 			rs=pstmt.executeQuery();
-			
 			if(rs.next()) {
 				count=rs.getInt(1);
 			}
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+		return count;
+	}
+	// 공유일때 카운트
+	public int getCount(String isShare){
+		String sqlSelect = "select count(*) from content where con_share  like ?";
+		int count=0;
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlSelect);
+			pstmt.setString(1, "%"+isShare+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		
+		return count;
+	}
+	// 공유 o 검색 o 카운트
+	public int getCount(String isShare , String type , String keyword){
+		String sqlSelect = "select count(*) from content where "+ type + " like ? and con_share  like ?";
+		int count=0;
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sqlSelect);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setString(2, "%"+isShare+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
 		}finally {
 			try {
 				if(rs!=null)rs.close();
@@ -378,7 +426,6 @@ public class ListDao {
 		public void updateContent(Content con){
 			String fileUpdate=con.getConFile() !=null ? "con_file=?, " : "";
 			String sqlUpdate = "update content set con_title=? ,con_text=? ,"+ fileUpdate +"con_share=? where content_no=?";
-			System.out.println("메서드안입니다.");
 			try {
 				conn= ds.getConnection();
 				pstmt=conn.prepareStatement(sqlUpdate);
@@ -388,14 +435,11 @@ public class ListDao {
 					pstmt.setString(3,con.getConFile());
 					pstmt.setString(4,con.getConShare());
 					pstmt.setInt(5,con.getContentNo());
-					System.out.println("여기는 파일있는");
 				}else {
 					pstmt.setString(3,con.getConShare());
 					pstmt.setInt(4,con.getContentNo());
-					System.out.println("여기는 파일없는");
 				}
 				
-				System.out.println("메서드안입니다. 마지막부분입니다");
 				pstmt.executeUpdate();
 			}catch(SQLException e) {
 				

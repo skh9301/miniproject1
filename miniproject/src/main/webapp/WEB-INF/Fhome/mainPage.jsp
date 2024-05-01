@@ -20,7 +20,7 @@
 	<div class="container-fluid bg-black  " style =" height:2000px; border:1px solid;">
 	<div class=""style =" height:1200px; ">
 		<div class="row m-3">
-			<div class= "col text-light fs-3 my-2" style: "font-family: 'Freesentation-9Black';">
+			<div class= "col text-light fs-3 my-2" >
 				미니프로젝트-게시판만들기
 			</div>
 		</div>

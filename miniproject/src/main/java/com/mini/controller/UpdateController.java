@@ -121,8 +121,6 @@ public class UpdateController extends HttpServlet{
 	
 	//공유타입 채크박스 클릭했을때 
 			
-			System.out.println("여기는 업데이트프로세스입니다");
-			System.out.println(shareTypeCheck);
 			//공유 판별
 			String shareType = shareTypeCheck==null || shareTypeCheck.equals("") ? "":"Y";
 			
@@ -156,7 +154,6 @@ public class UpdateController extends HttpServlet{
 		req.setAttribute("keyword", keyword);
 		req.setAttribute("shareType", shareType);
 	}
-	System.out.println(shareType);
 	req.setAttribute("isFile",isFile);
 	
 	resp.sendRedirect("imgList?no="+no+ "&pageNum="+pageNum+"&type="+type+"&keyword="+keyword+"&shareType="+shareType);

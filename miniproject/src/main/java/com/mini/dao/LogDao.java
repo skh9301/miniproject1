@@ -56,7 +56,6 @@ public class LogDao {
 	// 회원수정
 	public void updateMember(Member member){
 		String sqlUpdate = "UPDATE member SET pass= ?, nickname= ?, mphone= ?,  email= ? WHERE userid= ?";
-		System.out.println("dao  - updateMember(Member member) : " + member.getUserId());
 		try {
 			conn= ds.getConnection();
 			pstmt=conn.prepareStatement(sqlUpdate);

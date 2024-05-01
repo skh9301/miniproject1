@@ -20,7 +20,6 @@ public class signPassForm extends HttpServlet{
 		String id= (String)session.getAttribute("id");
 		String pass= (String)session.getAttribute("pass");
 		
-		System.out.println("여기는 패스 폼가는길이 오바"+pass);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/Fhome/signPassForm.jsp");
 		rd.forward(req, resp);

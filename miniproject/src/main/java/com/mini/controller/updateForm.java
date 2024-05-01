@@ -27,8 +27,6 @@ public class updateForm extends HttpServlet{
 		//공유타입 채크박스 클릭했을때 
 				String shareTypeCheck =req.getParameter("shareType");
 				
-				System.out.println("여기는 업데이트폼입니다");
-				System.out.println(shareTypeCheck);
 				//공유 판별
 				String shareType = shareTypeCheck==null || shareTypeCheck.equals("") ? "":"Y";
 				

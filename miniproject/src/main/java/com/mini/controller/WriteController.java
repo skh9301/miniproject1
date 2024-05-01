@@ -40,6 +40,7 @@ public class WriteController extends HttpServlet{
 		if(! (parentFile.exists() && parentFile.isDirectory())) {
 			parentFile.mkdir();
 		}
+		System.out.println("init - " + parentFile);		
 	}
 	
 @Override
@@ -61,7 +62,7 @@ public class WriteController extends HttpServlet{
 	
 	String conShareCheck = null,title = null, context = null, writer=null ,fileName=null;
 
-	
+	System.out.println(conFile);
 	//파일이 있을 경우
 	if(!isFile) {
 	MultipartRequest multi = new MultipartRequest(req,realPath,maxFileSize, 

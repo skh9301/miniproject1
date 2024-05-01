@@ -34,9 +34,6 @@ public class SignUpdateProController extends HttpServlet{
 		m.setmPhone(phone);
 		m.seteMail(email);
 		
-		System.out.println("파라미터로 받으 패스값"+m.getPass());
-		
-		
 		LogDao Ldao = new LogDao();
 		Ldao.updateMember(m);
 		

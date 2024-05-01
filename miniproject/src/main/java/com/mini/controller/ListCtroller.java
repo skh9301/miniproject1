@@ -84,23 +84,22 @@ public class ListCtroller extends HttpServlet {
 		if(!isSearch&&!isShare) {
 			listCount = Ldao.getCount();
 			cList= Ldao.getList( startRow,endRow);
-			// 검색 o 공유 x 
+			// 검색 o 공유 x  해결
 		}else if (isSearch&&!isShare ) {
 			listCount = Ldao.getCount(type,keyword);
 			cList= Ldao.getList(type,keyword,startRow,endRow);
-			//검색 x 공유 o
+			//검색 x 공유 o 
 		}else if (!isSearch&&isShare ) {
-			listCount = Ldao.getCount(type,keyword);
+			listCount = Ldao.getCount(shareType);
 			cList= Ldao.getList(shareType,startRow,endRow);
 			
 			//검색o 공유o
 		}else if (isSearch&&isShare ) {
-			listCount = Ldao.getCount(type,keyword);
+			listCount = Ldao.getCount(shareType,type,keyword);
 			cList= Ldao.getList(type,keyword,shareType,startRow,endRow);
 		}
 		//소수점 처리하기 위한 3항연산자  10개의 게시물당 1페이지 적어도 1페이지를 가지게 함
-				int pageCount = listCount/PAGE_SIZE+(listCount/PAGE_SIZE== 0?0:1);
-				
+				int pageCount = listCount/PAGE_SIZE+(listCount%PAGE_SIZE== 0?0:1);
 				//페이지 그룹 1~ 10까지 보이게
 				int startPage = currentPage/ PAGE_GROUP*PAGE_GROUP +1
 						-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0);
@@ -116,9 +115,6 @@ public class ListCtroller extends HttpServlet {
 		String nick= (String)session.getAttribute("nick");
 		String id= (String)session.getAttribute("id");
 		String pass= (String)session.getAttribute("pass");
-		System.out.println("비밀번호 아디입니다.");
-		System.out.println(id);
-		System.out.println(pass);
 		req.setAttribute("nick", nick);
 		req.setAttribute("id", id);
 		req.setAttribute("pass", pass);
@@ -131,7 +127,6 @@ public class ListCtroller extends HttpServlet {
 		req.setAttribute("isSearch", isSearch);
 		req.setAttribute("isShare", isShare);
 		req.setAttribute("conGood",conGood);
-		System.out.println(conGood);
 			// 검색 o 공유 x 
 		 if (isSearch&&!isShare ) {
 			 req.setAttribute("type", type);
