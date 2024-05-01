@@ -102,7 +102,7 @@ public class ListCtroller extends HttpServlet {
 				int pageCount = listCount/PAGE_SIZE+(listCount%PAGE_SIZE== 0?0:1);
 				//페이지 그룹 1~ 10까지 보이게
 				int startPage = currentPage/ PAGE_GROUP*PAGE_GROUP +1
-						-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0); 
+						-(currentPage%PAGE_GROUP == 0 ? PAGE_GROUP :0);
 				int endPage= startPage+PAGE_GROUP -1;
 				
 				
